@@ -1,73 +1,182 @@
-# Welcome to your Lovable project
+# DataBytes - Technical Blog
 
-## Project info
+A clean, minimal, developer-focused blog built with React, Vite, and Tailwind CSS.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Features
 
-## How can I edit this code?
+- 📝 **Markdown blog posts** with frontmatter metadata
+- 🎨 **Syntax highlighting** for SQL, DAX, Power Query (M), Python, and more
+- 📑 **Auto-generated table of contents** for each post
+- 🏷️ **Tag-based filtering** for easy navigation
+- ⏱️ **Reading time estimates** on each post
+- 📧 **Newsletter subscription** section
+- 📡 **RSS feed** for subscribers
+- 🔍 **SEO-optimized** with proper meta tags
+- 📱 **Fully responsive** design
 
-There are several ways of editing your application.
+## Adding a New Blog Post
 
-**Use Lovable**
+1. Open `src/data/posts.ts`
+2. Add a new post object to the `posts` array:
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+```typescript
+{
+  slug: "my-new-post", // URL-friendly identifier
+  title: "My New Post Title",
+  date: "2024-12-28", // YYYY-MM-DD format
+  summary: "A brief summary of the post (shown in listings)",
+  tags: ["SQL", "Tutorial"], // Choose relevant tags
+  readingTime: 10, // Estimated minutes to read
+  content: `
+Your markdown content goes here...
 
-Changes made via Lovable will be committed automatically to this repo.
+## Subheading
 
-**Use your preferred IDE**
+Regular paragraphs.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+\`\`\`sql
+SELECT * FROM table;
+\`\`\`
+`
+}
 ```
 
-**Edit a file directly in GitHub**
+3. The post will automatically appear on the home page and blog listing.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Supported Code Languages
 
-**Use GitHub Codespaces**
+The blog supports syntax highlighting for:
+- `sql` - SQL queries
+- `dax` - DAX formulas
+- `powerquery` or `m` - Power Query M language
+- `python` - Python code
+- `javascript`, `typescript`, `json`, etc.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/
+│   ├── ui/           # Shadcn UI components
+│   ├── BlogCard.tsx  # Post preview card
+│   ├── CodeBlock.tsx # Syntax highlighted code
+│   ├── Footer.tsx
+│   ├── Header.tsx
+│   ├── Layout.tsx
+│   ├── MarkdownRenderer.tsx
+│   ├── Newsletter.tsx
+│   ├── TableOfContents.tsx
+│   └── TagBadge.tsx
+├── data/
+│   └── posts.ts      # Blog post content
+├── pages/
+│   ├── About.tsx
+│   ├── Blog.tsx
+│   ├── BlogPost.tsx
+│   ├── Index.tsx
+│   └── RSS.tsx
+└── App.tsx
+```
 
-This project is built with:
+## Deploying to GitHub Pages
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Option 1: Manual Deployment
 
-## How can I deploy this project?
+1. Build the project:
+   ```bash
+   npm run build
+   ```
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+2. The `dist` folder contains the static files ready for deployment.
 
-## Can I connect a custom domain to my Lovable project?
+3. Push the `dist` folder to the `gh-pages` branch of your repository.
 
-Yes, you can!
+### Option 2: GitHub Actions (Recommended)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Create `.github/workflows/deploy.yml`:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```yaml
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build
+        run: npm run build
+        
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+```
+
+### Configuration for GitHub Pages
+
+Add to `vite.config.ts`:
+
+```typescript
+export default defineConfig({
+  base: '/your-repo-name/', // Add this line
+  // ... rest of config
+})
+```
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Customization
+
+### Colors & Theme
+Edit `src/index.css` to modify the color scheme. The blog uses CSS custom properties for easy theming.
+
+### Fonts
+The blog uses Inter for body text and JetBrains Mono for code. Modify the font imports in `src/index.css`.
+
+### Site Name
+Update the site name in:
+- `src/components/Header.tsx`
+- `src/components/Footer.tsx`
+- Page titles in each page component
+
+## Tech Stack
+
+- **React 18** - UI framework
+- **Vite** - Build tool
+- **Tailwind CSS** - Styling
+- **react-markdown** - Markdown rendering
+- **react-syntax-highlighter** - Code highlighting
+- **react-router-dom** - Routing
+- **react-helmet-async** - SEO meta tags
+
+## License
+
+MIT
