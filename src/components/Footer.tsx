@@ -3,23 +3,23 @@ import { Rss, Github, Linkedin, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border bg-card">
-      <div className="container py-12">
-        <div className="grid gap-8 md:grid-cols-3">
+    <footer className="border-t border-border/50 bg-card/50">
+      <div className="container py-16">
+        <div className="grid gap-12 md:grid-cols-3">
           <div>
-            <Link to="/" className="text-lg font-bold text-foreground">
-              DataBytes<span className="text-primary">.</span>
+            <Link to="/" className="inline-block text-xl font-bold text-foreground tracking-tight">
+              Techie<span className="text-primary">Tips</span>
             </Link>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Technical insights on Microsoft Fabric, Power BI, and modern data analytics.
+            <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xs">
+              Technical insights on Microsoft Fabric, Power BI, and modern data analytics. No fluff, just practical knowledge.
             </p>
           </div>
           
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Quick Links</h4>
-            <nav className="flex flex-col gap-2">
+            <h4 className="font-semibold text-foreground mb-5">Quick Links</h4>
+            <nav className="flex flex-col gap-3">
               <Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                All Posts
+                All Articles
               </Link>
               <Link to="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 About
@@ -31,13 +31,13 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Connect</h4>
-            <div className="flex gap-4">
+            <h4 className="font-semibold text-foreground mb-5">Connect</h4>
+            <div className="flex gap-3">
               <a 
                 href="https://github.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="p-2.5 rounded-lg bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-200"
               >
                 <Github className="h-5 w-5" />
               </a>
@@ -45,7 +45,7 @@ const Footer = () => {
                 href="https://linkedin.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="p-2.5 rounded-lg bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-200"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
@@ -53,13 +53,13 @@ const Footer = () => {
                 href="https://twitter.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="p-2.5 rounded-lg bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-200"
               >
                 <Twitter className="h-5 w-5" />
               </a>
               <Link 
                 to="/rss"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="p-2.5 rounded-lg bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-200"
               >
                 <Rss className="h-5 w-5" />
               </Link>
@@ -67,9 +67,9 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="mt-8 pt-8 border-t border-border">
+        <div className="mt-12 pt-8 border-t border-border/50">
           <p className="text-sm text-muted-foreground text-center">
-            © {new Date().getFullYear()} DataBytes. All rights reserved.
+            © {new Date().getFullYear()} TechieTips. All rights reserved.
           </p>
         </div>
       </div>

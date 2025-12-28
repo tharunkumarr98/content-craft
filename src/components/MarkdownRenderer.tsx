@@ -28,6 +28,18 @@ const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
             const id = String(children).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
             return <h4 id={id}>{children}</h4>;
           },
+          img: ({ src, alt }) => {
+            // Handle images - convert relative paths to public folder paths
+            const imageSrc = src?.startsWith('/') ? src : `/images/blog/${src}`;
+            return (
+              <img
+                src={imageSrc}
+                alt={alt || ""}
+                className="rounded-xl my-8 max-w-full w-full shadow-md"
+                loading="lazy"
+              />
+            );
+          },
           code: ({ className, children, ...props }) => {
             const match = /language-(\w+)/.exec(className || "");
             const isInline = !match && !className;
