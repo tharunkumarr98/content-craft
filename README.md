@@ -3,6 +3,13 @@
 
 
 
+
+
+
+
+
+
+
 A clean, minimal, developer-focused blog built with React, Vite, and Tailwind CSS.
 
 ## Adding a New Blog Post
