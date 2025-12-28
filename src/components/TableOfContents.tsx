@@ -54,26 +54,28 @@ const TableOfContents = ({ content }: TableOfContentsProps) => {
 
   return (
     <nav className="hidden lg:block sticky top-24">
-      <h4 className="text-sm font-semibold text-foreground mb-4">On this page</h4>
-      <ul className="space-y-2 text-sm">
-        {headings.map((heading) => (
-          <li
-            key={heading.id}
-            style={{ paddingLeft: `${(heading.level - 2) * 12}px` }}
-          >
-            <a
-              href={`#${heading.id}`}
-              className={`block py-1 transition-colors hover:text-primary ${
-                activeId === heading.id
-                  ? "text-primary font-medium"
-                  : "text-muted-foreground"
-              }`}
+      <div className="p-5 rounded-xl bg-card/50 border border-border/50">
+        <h4 className="text-sm font-semibold text-foreground mb-4">On this page</h4>
+        <ul className="space-y-2.5 text-sm">
+          {headings.map((heading) => (
+            <li
+              key={heading.id}
+              style={{ paddingLeft: `${(heading.level - 2) * 14}px` }}
             >
-              {heading.text}
-            </a>
-          </li>
-        ))}
-      </ul>
+              <a
+                href={`#${heading.id}`}
+                className={`block py-1 transition-colors leading-snug hover:text-primary ${
+                  activeId === heading.id
+                    ? "text-primary font-medium"
+                    : "text-muted-foreground"
+                }`}
+              >
+                {heading.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 };

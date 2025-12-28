@@ -1,0 +1,15 @@
+# Blog Images
+
+Place your blog images in this folder.
+
+Reference them in your Markdown posts like this:
+
+```markdown
+![Alt text](my-image.png)
+```
+
+Or with full path:
+
+```markdown
+![Alt text](/images/blog/my-image.png)
+```

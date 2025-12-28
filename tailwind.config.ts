@@ -12,7 +12,7 @@ export default {
         sm: "640px",
         md: "768px",
         lg: "1024px",
-        xl: "800px",
+        xl: "840px",
       },
     },
     extend: {
@@ -65,15 +65,28 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Outfit', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
-      typography: {
-        DEFAULT: {
-          css: {
-            maxWidth: 'none',
-          },
+      boxShadow: {
+        'card': 'var(--shadow-card)',
+        'sm': 'var(--shadow-sm)',
+        'md': 'var(--shadow-md)',
+        'lg': 'var(--shadow-lg)',
+      },
+      keyframes: {
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        "fade-in-up": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        "fade-in": "fade-in 0.5s ease-out",
+        "fade-in-up": "fade-in-up 0.6s ease-out",
       },
     },
   },

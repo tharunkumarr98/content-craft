@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Copy, Check } from "lucide-react";
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { getAllPosts } from "@/data/posts";
+import { getAllPosts } from "@/lib/blog";
 
 const RSS = () => {
   const [copied, setCopied] = useState(false);
@@ -13,7 +13,7 @@ const RSS = () => {
   const rssContent = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>DataBytes</title>
+    <title>TechieTips</title>
     <link>https://yourdomain.com</link>
     <description>Technical insights on Microsoft Fabric, Power BI, and data analytics</description>
     <language>en-us</language>
@@ -38,25 +38,25 @@ ${posts.map(post => `    <item>
   return (
     <Layout>
       <Helmet>
-        <title>RSS Feed - DataBytes</title>
-        <meta name="description" content="Subscribe to DataBytes RSS feed for the latest articles on data analytics." />
+        <title>RSS Feed - TechieTips</title>
+        <meta name="description" content="Subscribe to TechieTips RSS feed for the latest articles on data analytics." />
       </Helmet>
       
-      <section className="container py-12 max-w-3xl">
-        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <section className="container py-12 max-w-3xl animate-fade-in">
+        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4 tracking-tight">
           RSS Feed
         </h1>
         
-        <p className="text-muted-foreground mb-8">
+        <p className="text-muted-foreground mb-10">
           Subscribe to receive new articles in your favorite RSS reader.
         </p>
         
-        <div className="bg-card border border-border rounded-lg p-6 mb-8">
+        <div className="bg-card border border-border rounded-xl p-6 mb-10 shadow-card">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold text-foreground">Feed URL</h2>
             <button
               onClick={handleCopy}
-              className="flex items-center gap-2 text-sm text-primary hover:underline"
+              className="flex items-center gap-2 text-sm text-primary hover:underline font-medium transition-colors"
             >
               {copied ? (
                 <>
@@ -70,23 +70,23 @@ ${posts.map(post => `    <item>
             </button>
           </div>
           
-          <code className="block bg-muted p-3 rounded text-sm text-muted-foreground break-all">
+          <code className="block bg-muted p-4 rounded-lg text-sm text-muted-foreground break-all font-mono">
             https://yourdomain.com/rss.xml
           </code>
         </div>
         
-        <div className="bg-muted rounded-lg p-6">
-          <h3 className="font-semibold text-foreground mb-4">Latest in Feed</h3>
-          <ul className="space-y-3">
+        <div className="bg-muted/50 rounded-xl p-6 border border-border/50">
+          <h3 className="font-semibold text-foreground mb-5">Latest in Feed</h3>
+          <ul className="space-y-4">
             {posts.slice(0, 5).map(post => (
-              <li key={post.slug}>
+              <li key={post.slug} className="flex items-start justify-between gap-4">
                 <Link 
                   to={`/blog/${post.slug}`}
-                  className="text-primary hover:underline"
+                  className="text-primary hover:underline font-medium text-sm"
                 >
                   {post.title}
                 </Link>
-                <span className="text-muted-foreground text-sm ml-2">
+                <span className="text-muted-foreground text-sm whitespace-nowrap">
                   {new Date(post.date).toLocaleDateString()}
                 </span>
               </li>

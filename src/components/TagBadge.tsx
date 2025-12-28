@@ -6,13 +6,13 @@ interface TagBadgeProps {
 }
 
 const TagBadge = ({ tag, clickable = true }: TagBadgeProps) => {
-  const baseClasses = "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-tag-bg text-tag-text transition-colors";
+  const baseClasses = "inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-tag-bg text-tag-text transition-all duration-200";
   
   if (clickable) {
     return (
       <Link
         to={`/blog?tag=${encodeURIComponent(tag)}`}
-        className={`${baseClasses} hover:bg-primary/20`}
+        className={`${baseClasses} hover:bg-primary/20 hover:text-primary`}
       >
         {tag}
       </Link>
