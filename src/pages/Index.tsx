@@ -50,7 +50,7 @@ const Index = () => {
   return (
     <Layout>
       <Helmet>
-        <title>TechieTips - Technical Insights on Data Analytics & Microsoft Fabric</title>
+        <title>TechieTips</title>
         <meta name="description" content="Technical insights on Microsoft Fabric, Power BI, SQL, DAX, Power Query, and Python. Articles, tips, and dashboard showcases for data professionals." />
         <meta property="og:title" content="TechieTips - Technical Insights on Data Analytics" />
         <meta property="og:description" content="Technical insights on Microsoft Fabric, Power BI, and data analytics." />
@@ -63,19 +63,22 @@ const Index = () => {
         <div className="container py-16 md:py-20 relative">
           <div className="max-w-2xl animate-fade-in">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-[1.1] tracking-tight">
-              Technical insights for{" "}
-              <span className="gradient-text">data professionals</span>
+             Knowledge Hub for{" "}
+              <span className="gradient-text">Modern Data Analytics</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Deep dives into Microsoft Fabric, Power BI, SQL, DAX, Power Query, and Python. 
-              Practical tutorials and patterns for building modern data solutions.
+              Hands-on knowledge for the Microsoft data ecosystem
             </p>
           </div>
           
-          {/* Tech Cloud */}
-          <TechCloud />
+          {/* Tech Cloud (moved below hero to sit above content navigation) */}
         </div>
       </section>
+
+      {/* TechCloud placed above the content navigation with bottom padding */}
+      <div className="container pb-8">
+        <TechCloud />
+      </div>
 
       {/* Content Section */}
       <section className="container pb-20">
