@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Rss, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const Header = () => {
@@ -13,7 +13,9 @@ const Header = () => {
 
   const navLinks = [
     { path: "/", label: "Home" },
-    { path: "/blog", label: "Blog" },
+    { path: "/articles", label: "Articles" },
+    { path: "/tips", label: "Tips" },
+    { path: "/dashboards", label: "Dashboards" },
     { path: "/about", label: "About" },
   ];
 
@@ -44,13 +46,6 @@ const Header = () => {
               )}
             </Link>
           ))}
-          <Link
-            to="/rss"
-            className="text-muted-foreground hover:text-primary transition-colors p-2 rounded-lg hover:bg-muted"
-            title="RSS Feed"
-          >
-            <Rss className="h-4 w-4" />
-          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -80,14 +75,6 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
-            <Link
-              to="/rss"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground flex items-center gap-2"
-            >
-              <Rss className="h-4 w-4" />
-              RSS Feed
-            </Link>
           </nav>
         </div>
       )}

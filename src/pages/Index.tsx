@@ -1,65 +1,111 @@
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
-import BlogCard from "@/components/BlogCard";
+import ContentToggle from "@/components/ContentToggle";
+import TechCloud from "@/components/TechCloud";
 import Newsletter from "@/components/Newsletter";
-import { getAllPosts } from "@/lib/blog";
+import ContentCard from "@/components/ContentCard";
+import { getArticles, getTips, getDashboards, ContentType } from "@/lib/content";
 
 const Index = () => {
-  const recentPosts = getAllPosts().slice(0, 4);
+  const [activeType, setActiveType] = useState<ContentType>("article");
+  
+  const getContent = () => {
+    switch (activeType) {
+      case "article":
+        return getArticles().slice(0, 4);
+      case "tip":
+        return getTips().slice(0, 4);
+      case "dashboard":
+        return getDashboards().slice(0, 4);
+    }
+  };
+
+  const getTypeLabel = () => {
+    switch (activeType) {
+      case "article":
+        return "Articles";
+      case "tip":
+        return "Tips & Tricks";
+      case "dashboard":
+        return "Dashboards";
+    }
+  };
+
+  const getTypeRoute = () => {
+    switch (activeType) {
+      case "article":
+        return "/articles";
+      case "tip":
+        return "/tips";
+      case "dashboard":
+        return "/dashboards";
+    }
+  };
+
+  const content = getContent();
 
   return (
     <Layout>
       <Helmet>
-        <title>TechieTips - Technical Blog on Data Analytics & Microsoft Fabric</title>
-        <meta name="description" content="Technical insights on Microsoft Fabric, Power BI, SQL, DAX, Power Query, and Python. Deep dives into data analytics, tutorials, and best practices." />
-        <meta property="og:title" content="TechieTips - Technical Blog on Data Analytics" />
+        <title>TechieTips - Technical Insights on Data Analytics & Microsoft Fabric</title>
+        <meta name="description" content="Technical insights on Microsoft Fabric, Power BI, SQL, DAX, Power Query, and Python. Articles, tips, and dashboard showcases for data professionals." />
+        <meta property="og:title" content="TechieTips - Technical Insights on Data Analytics" />
         <meta property="og:description" content="Technical insights on Microsoft Fabric, Power BI, and data analytics." />
         <meta property="og:type" content="website" />
       </Helmet>
       
-      <section className="container py-16 md:py-24">
-        <div className="max-w-2xl animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-            <Sparkles className="h-3.5 w-3.5" />
-            Data Analytics & Microsoft Fabric
+      {/* Hero Section */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] via-primary/[0.03] to-transparent" />
+        <div className="container py-16 md:py-20 relative">
+          <div className="max-w-2xl animate-fade-in">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-[1.1] tracking-tight">
+              Technical insights for{" "}
+              <span className="gradient-text">data professionals</span>
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
+              Deep dives into Microsoft Fabric, Power BI, SQL, DAX, Power Query, and Python. 
+              Practical tutorials and patterns for building modern data solutions.
+            </p>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-[1.1] tracking-tight">
-            Technical insights for{" "}
-            <span className="gradient-text">data professionals</span>
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-            Deep dives into Microsoft Fabric, Power BI, SQL, DAX, Power Query, and Python. 
-            Practical tutorials and patterns for building modern data solutions.
-          </p>
+          
+          {/* Tech Cloud */}
+          <TechCloud />
         </div>
       </section>
 
+      {/* Content Section */}
       <section className="container pb-20">
-        <div className="flex items-center justify-between mb-10">
-          <h2 className="text-xl md:text-2xl font-semibold text-foreground">
-            Recent Articles
-          </h2>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10">
+          <ContentToggle activeType={activeType} onTypeChange={setActiveType} />
           <Link 
-            to="/blog" 
+            to={getTypeRoute()} 
             className="flex items-center gap-2 text-sm font-medium text-primary hover:gap-3 transition-all duration-200"
           >
-            View all <ArrowRight className="h-4 w-4" />
+            View all {getTypeLabel().toLowerCase()} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
         
         <div className="grid gap-6">
-          {recentPosts.map((post, index) => (
+          {content.map((item, index) => (
             <article 
-              key={post.slug} 
+              key={item.slug} 
               className="animate-fade-in-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <BlogCard post={post} />
+              <ContentCard item={item} />
             </article>
           ))}
         </div>
+        
+        {content.length === 0 && (
+          <p className="text-muted-foreground text-center py-16">
+            No {getTypeLabel().toLowerCase()} yet. Check back soon!
+          </p>
+        )}
       </section>
 
       <section className="container pb-20">
