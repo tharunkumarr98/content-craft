@@ -26,13 +26,13 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 border border-primary/10 p-8 md:p-10">
+    <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal/5 via-teal/10 to-anthracite/5 border border-teal/20 p-8 md:p-10">
       <div className="relative z-10">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2.5 rounded-xl bg-primary/15">
-            <Mail className="h-5 w-5 text-primary" />
+          <div className="p-2.5 rounded-xl bg-teal/15">
+            <Mail className="h-5 w-5 text-teal" />
           </div>
-          <h3 className="text-xl font-semibold text-foreground">
+          <h3 className="text-xl font-semibold text-anthracite">
             Stay Updated
           </h3>
         </div>
@@ -48,9 +48,9 @@ const Newsletter = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="flex-1 h-12 bg-background/80 border-border/50 focus:border-primary"
+            className="flex-1 h-12 bg-background/80 border-teal/30 focus:border-teal focus:ring-teal/20"
           />
-          <Button type="submit" disabled={isLoading} className="h-12 px-6 gap-2 shadow-sm">
+          <Button type="submit" disabled={isLoading} className="h-12 px-6 gap-2 bg-teal hover:bg-teal/90 text-white shadow-sm">
             {isLoading ? "Subscribing..." : (
               <>
                 Subscribe <ArrowRight className="h-4 w-4" />
@@ -61,8 +61,8 @@ const Newsletter = () => {
       </div>
       
       {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 right-0 w-64 h-64 bg-teal/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-anthracite/5 rounded-full blur-3xl" />
     </section>
   );
 };

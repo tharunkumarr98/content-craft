@@ -54,9 +54,12 @@ const TableOfContents = ({ content }: TableOfContentsProps) => {
 
   return (
     <nav className="hidden lg:block sticky top-24">
-      <div className="p-5 rounded-xl bg-card/50 border border-border/50">
-        <h4 className="text-sm font-semibold text-foreground mb-4">On this page</h4>
-        <ul className="space-y-2.5 text-sm">
+      <div className="p-5 rounded-xl bg-gradient-to-br from-background to-muted/30 border border-teal/20 shadow-sm">
+        <h4 className="text-sm font-semibold text-anthracite mb-4 flex items-center gap-2">
+          <span className="w-1 h-4 bg-teal rounded-full"></span>
+          On this page
+        </h4>
+        <ul className="space-y-2 text-sm">
           {headings.map((heading) => (
             <li
               key={heading.id}
@@ -64,9 +67,9 @@ const TableOfContents = ({ content }: TableOfContentsProps) => {
             >
               <a
                 href={`#${heading.id}`}
-                className={`block py-1 transition-colors leading-snug hover:text-primary ${
+                className={`block py-1.5 transition-all leading-snug hover:text-teal hover:translate-x-0.5 ${
                   activeId === heading.id
-                    ? "text-primary font-medium"
+                    ? "text-teal font-medium border-l-2 border-teal pl-2 -ml-2"
                     : "text-muted-foreground"
                 }`}
               >
