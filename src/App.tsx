@@ -5,10 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
-import Blog from "./pages/Blog";
-import BlogPost from "./pages/BlogPost";
+import ContentPage from "./pages/ContentPage";
+import ContentDetail from "./pages/ContentDetail";
 import About from "./pages/About";
-import RSS from "./pages/RSS";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,10 +21,13 @@ const App = () => (
         <BrowserRouter basename="/content-craft">
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/articles" element={<ContentPage type="article" />} />
+            <Route path="/articles/:slug" element={<ContentDetail type="article" />} />
+            <Route path="/tips" element={<ContentPage type="tip" />} />
+            <Route path="/tips/:slug" element={<ContentDetail type="tip" />} />
+            <Route path="/dashboards" element={<ContentPage type="dashboard" />} />
+            <Route path="/dashboards/:slug" element={<ContentDetail type="dashboard" />} />
             <Route path="/about" element={<About />} />
-            <Route path="/rss" element={<RSS />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

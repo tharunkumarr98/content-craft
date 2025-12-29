@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Rss, Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -16,16 +16,19 @@ const Footer = () => {
           </div>
           
           <div>
-            <h4 className="font-semibold text-foreground mb-5">Quick Links</h4>
+            <h4 className="font-semibold text-foreground mb-5">Content</h4>
             <nav className="flex flex-col gap-3">
-              <Link to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                All Articles
+              <Link to="/articles" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                Articles
+              </Link>
+              <Link to="/tips" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                Tips & Tricks
+              </Link>
+              <Link to="/dashboards" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                Dashboards
               </Link>
               <Link to="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 About
-              </Link>
-              <Link to="/rss" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                RSS Feed
               </Link>
             </nav>
           </div>
@@ -57,12 +60,12 @@ const Footer = () => {
               >
                 <Twitter className="h-5 w-5" />
               </a>
-              <Link 
-                to="/rss"
+              <a 
+                href="mailto:tharunkumarr98@gmail.com"
                 className="p-2.5 rounded-lg bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-200"
               >
-                <Rss className="h-5 w-5" />
-              </Link>
+                <Mail className="h-5 w-5" />
+              </a>
             </div>
           </div>
         </div>
