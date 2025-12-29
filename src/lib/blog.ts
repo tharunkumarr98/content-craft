@@ -1,4 +1,8 @@
-import matter from "gray-matter";
+// REMOVE THIS:
+// import matter from 'gray-matter';
+
+// ADD THIS:
+import fm from 'front-matter';
 
 export interface BlogPost {
   slug: string;
@@ -33,7 +37,13 @@ function parseBlogPosts(): BlogPost[] {
     const slug = path.replace("/content/blog/", "").replace(".md", "");
     
     try {
-      const { data, content: markdownContent } = matter(content);
+      //const { data, content: markdownContent } = matter(content);
+      // --- CHANGE START ---
+      // front-matter returns an object with 'attributes' and 'body'
+      const { attributes, body } = fm<any>(rawString);
+      const data = attributes;
+      const markdownContent = body;
+      // --- CHANGE END ---
       
       posts.push({
         slug,
