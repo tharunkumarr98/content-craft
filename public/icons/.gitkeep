@@ -1,0 +1,13 @@
+# Tech Icons Folder
+
+Place your technology icons here (PNG, SVG, or JPG).
+The TechCloud component will automatically display all images in this folder.
+
+Recommended naming: use lowercase with hyphens
+Examples:
+- power-bi.svg
+- microsoft-fabric.png
+- python.svg
+- sql.svg
+- dax.svg
+- power-query.svg

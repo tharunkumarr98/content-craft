@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Layout from "@/components/Layout";
 import Newsletter from "@/components/Newsletter";
+import ContactCTA from "@/components/ContactCTA";
 
 const About = () => {
   return (
@@ -11,7 +12,7 @@ const About = () => {
       </Helmet>
       
       <section className="container py-12 max-w-3xl animate-fade-in">
-        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-10 tracking-tight">
+        <h1 className="text-3xl md:text-4xl font-bold text-anthracite mb-10 tracking-tight">
           About
         </h1>
         
@@ -21,38 +22,42 @@ const About = () => {
             about modern data analytics, with a focus on the Microsoft data platform.
           </p>
           
-          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-6">
+          <h2 className="text-2xl font-semibold text-anthracite mt-12 mb-6">
             What I Write About
           </h2>
           
           <ul className="space-y-4 text-muted-foreground mb-10">
             <li className="flex items-start gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
-              <span><strong className="text-foreground font-medium">Microsoft Fabric</strong> — Lakehouse architecture, data engineering, and analytics</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
+              <span><strong className="text-anthracite font-medium">Microsoft Fabric</strong> — Lakehouse architecture, data engineering, and analytics</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
-              <span><strong className="text-foreground font-medium">Power BI</strong> — Data modeling, visualization best practices, and performance optimization</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
+              <span><strong className="text-anthracite font-medium">Power BI</strong> — Data modeling, visualization best practices, and performance optimization</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
-              <span><strong className="text-foreground font-medium">DAX</strong> — From fundamentals to advanced patterns and time intelligence</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
+              <span><strong className="text-anthracite font-medium">DAX</strong> — From fundamentals to advanced patterns and time intelligence</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
-              <span><strong className="text-foreground font-medium">Power Query (M)</strong> — Data transformation techniques and performance tips</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
+              <span><strong className="text-anthracite font-medium">Power Query (M)</strong> — Data transformation techniques and performance tips</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
-              <span><strong className="text-foreground font-medium">SQL</strong> — Query optimization, window functions, and analytics patterns</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
+              <span><strong className="text-anthracite font-medium">SQL</strong> — Query optimization, window functions, and analytics patterns</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
-              <span><strong className="text-foreground font-medium">Python</strong> — Data analysis with pandas, PySpark, and automation scripts</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
+              <span><strong className="text-anthracite font-medium">Python</strong> — Data analysis with pandas, PySpark, and automation scripts</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
+              <span><strong className="text-anthracite font-medium">PowerShell & KQL</strong> — Automation scripts and Kusto queries</span>
             </li>
           </ul>
           
-          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-6">
+          <h2 className="text-2xl font-semibold text-anthracite mt-12 mb-6">
             Philosophy
           </h2>
           
@@ -61,16 +66,10 @@ const About = () => {
             Every article includes working code examples that you can adapt for your own projects. 
             No fluff, no marketing speak—just technical content for data professionals.
           </p>
-          
-          <h2 className="text-2xl font-semibold text-foreground mt-12 mb-6">
-            Get in Touch
-          </h2>
-          
-          <p className="text-muted-foreground leading-relaxed">
-            Have questions or suggestions for topics? Feel free to reach out on{" "}
-            <a href="https://linkedin.com" className="text-primary hover:underline font-medium">LinkedIn</a> or{" "}
-            <a href="https://twitter.com" className="text-primary hover:underline font-medium">Twitter</a>.
-          </p>
+        </div>
+
+        <div className="mt-12">
+          <ContactCTA />
         </div>
       </section>
 
