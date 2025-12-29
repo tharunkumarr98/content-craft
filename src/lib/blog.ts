@@ -40,7 +40,7 @@ function parseBlogPosts(): BlogPost[] {
       //const { data, content: markdownContent } = matter(content);
       // --- CHANGE START ---
       // front-matter returns an object with 'attributes' and 'body'
-      const { attributes, body } = fm<any>(rawString);
+      const { attributes, body } = fm<any>(content);
       const data = attributes;
       const markdownContent = body;
       // --- CHANGE END ---
