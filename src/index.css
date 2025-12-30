@@ -40,11 +40,16 @@
     --radius: 0.75rem;
 
     /* Custom tokens */
-    --code-bg: 220 15% 96%;
-    --code-border: 220 10% 88%;
-    --inline-code-bg: 183 20% 94%;
+    --code-bg: 220 15% 12%;
+    --code-border: 220 12% 22%;
+    --inline-code-bg: 183 25% 92%;
+    --inline-code-text: 183 35% 28%;
     --tag-bg: 183 25% 92%;
     --tag-text: 183 30% 35%;
+    
+    /* Link colors - high contrast teal */
+    --link: 183 40% 38%;
+    --link-hover: 183 45% 32%;
     
     /* Gradient tokens - Anthracite to Teal */
     --gradient-primary: linear-gradient(135deg, hsl(220, 20%, 18%), hsl(183, 23%, 48%));
@@ -90,9 +95,14 @@
     /* Custom tokens dark */
     --code-bg: 220 18% 10%;
     --code-border: 220 15% 22%;
-    --inline-code-bg: 183 20% 15%;
+    --inline-code-bg: 183 25% 18%;
+    --inline-code-text: 183 35% 72%;
     --tag-bg: 183 25% 18%;
     --tag-text: 183 30% 65%;
+    
+    /* Link colors dark */
+    --link: 183 45% 58%;
+    --link-hover: 183 50% 65%;
     
     /* Gradient tokens dark */
     --gradient-primary: linear-gradient(135deg, hsl(220, 18%, 15%), hsl(183, 28%, 55%));
@@ -172,7 +182,8 @@
   }
 
   .prose-blog a {
-    @apply text-primary font-medium hover:underline underline-offset-2 transition-colors;
+    color: hsl(var(--link));
+    @apply font-semibold hover:underline underline-offset-2 transition-colors;
   }
 
   .prose-blog blockquote {
@@ -200,8 +211,9 @@
   }
 
   .prose-blog code:not(pre code) {
-    @apply px-1.5 py-0.5 rounded-md text-sm font-medium;
+    @apply px-1.5 py-0.5 rounded-md text-sm font-semibold;
     background-color: hsl(var(--inline-code-bg));
+    color: hsl(var(--inline-code-text));
   }
 
   .prose-blog pre {
