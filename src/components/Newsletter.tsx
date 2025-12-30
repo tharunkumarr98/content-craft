@@ -1,28 +1,13 @@
-import { useState } from "react";
 import { Mail, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
 
 const Newsletter = () => {
-  const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    
-    // Simulate subscription
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Subscribed!",
-      description: "You'll receive updates when new articles are published.",
-    });
-    
-    setEmail("");
-    setIsLoading(false);
+  const handleSubscribe = () => {
+    const subject = encodeURIComponent("Newsletter Subscription Request - TechieTips");
+    const body = encodeURIComponent(
+      "Hi,\n\nI would like to subscribe to the TechieTips newsletter to receive updates on new articles about data analytics, Power BI, and Microsoft Fabric.\n\nPlease add me to your mailing list.\n\nThank you!"
+    );
+    window.location.href = `mailto:tharunkumarr98@gmail.com?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -37,27 +22,16 @@ const Newsletter = () => {
           </h3>
         </div>
         
-        <p className="text-muted-foreground mb-8 max-w-md leading-relaxed">
+        <p className="text-muted-foreground mb-6 max-w-md leading-relaxed">
           Get notified when I publish new articles about data analytics, Power BI, and Microsoft Fabric. No spam, unsubscribe anytime.
         </p>
         
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md">
-          <Input
-            type="email"
-            placeholder="your@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="flex-1 h-12 bg-background/80 border-teal/30 focus:border-teal focus:ring-teal/20"
-          />
-          <Button type="submit" disabled={isLoading} className="h-12 px-6 gap-2 bg-teal hover:bg-teal/90 text-white shadow-sm">
-            {isLoading ? "Subscribing..." : (
-              <>
-                Subscribe <ArrowRight className="h-4 w-4" />
-              </>
-            )}
-          </Button>
-        </form>
+        <Button 
+          onClick={handleSubscribe} 
+          className="h-12 px-6 gap-2 bg-teal hover:bg-teal/90 text-white shadow-sm"
+        >
+          Subscribe via Email <ArrowRight className="h-4 w-4" />
+        </Button>
       </div>
       
       {/* Decorative elements */}
