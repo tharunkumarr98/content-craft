@@ -1,29 +1,44 @@
 ---
-title: "Quick DAX: Calculate Running Total"
-date: "2025-01-15"
-summary: "A quick pattern for calculating running totals in Power BI using DAX."
-tags: ["DAX", "Power BI", "Quick Wins"]
+title: "Quick DAX: TOP N Items"
+date: "2025-12-30"
+summary: "A quick pattern to show Top n items without using visual level 'TOP N' filter or RANKX or RANK function based measure"
+tags: ["Power BI", "DAX"]
 ---
 
-## Running Total Pattern
-
-Use this DAX pattern for a cumulative running total:
-
+## Top N Items Pattern
+Lets say you have a **SalesAmount** measure
 ```dax
-Running Total = 
-CALCULATE(
-    SUM(Sales[Amount]),
-    FILTER(
-        ALL(Calendar[Date]),
-        Calendar[Date] <= MAX(Calendar[Date])
-    )
+SalesAmount = 
+SUMX(
+    sales_rawtransactions,
+    sales_rawtransactions[quantity_sold] * sales_rawtransactions[product_price]
 )
 ```
 
-### When to Use
+To get top n items you can use this DAX pattern can avoid using visual level **TOP N** filter or `RANKX` or `RANK` function based measure:
 
-- Sales cumulative totals
-- Year-to-date calculations
-- Inventory tracking
+```dax
+Top N Products = 
+VAR __TopNTable = 
+TOPN(
+    5,
+    ALLSELECTED(sales_rawtransactions[product_name]),
+    [SalesAmount],
+    DESC
+)
+VAR __Result = CALCULATE(
+    [SalesAmount],
+    KEEPFILTERS(__TopNTable)
+)
+RETURN
+    __Result
 
-**Pro tip**: Always ensure your date table is marked as a date table for best performance.
+```
+
+## When to Use
+
+- To get topn items without `RANK` or `RANKX` function based measure
+- To get topn items without visual level **TOP N** filter
+
+## Pro tip
+Sometimes visual level measure filtes causes performance issues, avoid this kind of patterns to avoid those scenarios.

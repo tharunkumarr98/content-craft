@@ -1,7 +1,7 @@
 ---
 title: "Power BI TMDL View: Tasks You Can Finally Do Without External Tools"
 date: "2025-11-23"
-summary: "Explore how the new TMDL view in Power BI Desktop lets you perform advanced modeling tasks directly inside Power BI—eliminating the need for external tools."
+summary: "Explore how the new TMDL view in Power BI Desktop lets you perform advanced modeling tasks directly inside Power BI, eliminating the need for external tools."
 tags: ["Power BI", "Semantic Model", "TMDL"]
 ---
 
@@ -10,8 +10,8 @@ Before the introduction of TMDL ([Tabular Model Definition Language](https://lea
 
 These tools are not created by Microsoft, many organizations do not allow them, and some require additional licensing. In this blog, let’s talk about a few tasks that the new TMDL view enables directly inside Power BI Desktop tasks that were not possible using the GUI at the time of writing.
 
-Changing the Storage Mode
--------------------------
+## Changing the Storage Mode
+
 
 Before TMDL, switching a table from Import to DirectQuery was not possible in the GUI. TMDL makes it simple.
 
@@ -78,8 +78,7 @@ You can see the created roles in Model Explorer.
 
 ![captionless image](images/blog/TMDL-View/7.png)
 
-Creation of Perspectives
-------------------------
+## Creation of Perspectives
 
 If you have used the [Personalized Visuals](https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-personalize-visuals?tabs=powerbi-desktop) feature, you may already know what Perspectives are. They are used to provide a simplified, focused view of a model.
 
@@ -105,8 +104,7 @@ Your perspective will appear in Model Explorer.
 
 ![captionless image](images/blog/TMDL-View/9.png)
 
-Addition of Cultures and Translations
--------------------------------------
+## Addition of Cultures and Translations
 
 If you have created multi-language Power BI reports, you may already know about [Cultures](https://learn.microsoft.com/en-us/power-bi/guidance/multiple-language-locale).
 
@@ -136,8 +134,7 @@ The culture will appear in Model Explorer.
 
 ![captionless image](images/blog/TMDL-View/11.png)
 
-Configuration of Detail Rows Expressions
-----------------------------------------
+## Configuration of Detail Rows Expressions
 
 If you build self-service datasets for Excel users, you may already know about [Detail Rows](https://www.sqlbi.com/articles/controlling-drillthrough-in-excel-pivottables-connected-to-power-bi-or-analysis-services/). This property controls exactly which columns are returned when users drill through in Excel PivotTables connected to your Power BI semantic model.
 
@@ -172,8 +169,7 @@ EVALUATE DETAILROWS([EmployeeCount])
 ```
 ![captionless image](images/blog/TMDL-View/13.png)
 
-Creating Custom Table Partitions
---------------------------------
+## Creating Custom Table Partitions
 
 Before TMDL, splitting a table into custom partitions required Tabular Editor or other external tools. Now this can be done directly in Desktop.
 

@@ -29,19 +29,26 @@ const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
             return <h4 id={id}>{children}</h4>;
           },
         img: ({ src, alt }) => {
-            // 1. Get the base (e.g., "/content-craft") and remove any trailing slash
+            // 1. If it's an external URL, render it exactly as is
+            if (src?.startsWith("http")) {
+              return (
+                <img
+                  src={src}
+                  alt={alt || ""}
+                  className="rounded-xl my-8 max-w-full w-full shadow-md"
+                  loading="lazy" // External images can usually stay lazy
+                />
+              );
+            }
+
+            // 2. Handle local images (your existing logic)
             const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-            
-            // 2. Clean up the src from Markdown
             let path = src || "";
 
-            // 3. If the path already includes the base name (manually typed in MD), 
-            // remove it first so we don't double it.
             if (path.startsWith(base) && base !== "") {
               path = path.replace(base, "");
             }
 
-            // 4. Final safety check: Ensure there is exactly one slash between them
             if (!path.startsWith("/")) {
               path = "/" + path;
             }
@@ -60,8 +67,7 @@ const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
               />
             );
           },
-  
-          code: ({ className, children, ...props }) => {
+            code: ({ className, children, ...props }) => {
             const match = /language-(\w+)/.exec(className || "");
             const isInline = !match && !className;
             

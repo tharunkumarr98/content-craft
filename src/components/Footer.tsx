@@ -37,7 +37,7 @@ const Footer = () => {
             <h4 className="font-semibold text-foreground mb-5">Connect</h4>
             <div className="flex gap-3">
               <a 
-                href="https://github.com" 
+                href="https://github.com/tharunkumarr98" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-2.5 rounded-lg bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-200"
@@ -45,7 +45,7 @@ const Footer = () => {
                 <Github className="h-5 w-5" />
               </a>
               <a 
-                href="https://linkedin.com" 
+                href="https://www.linkedin.com/in/tharun-kumar-ravikrindhi/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-2.5 rounded-lg bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-200"
