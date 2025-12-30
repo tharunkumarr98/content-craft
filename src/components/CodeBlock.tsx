@@ -128,7 +128,7 @@ const CodeBlock = ({ language = "text", children }: CodeBlockProps) => {
           ) : (
             <>
               <Copy className="h-3.5 w-3.5" />
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity">Copy</span>
+              <span>Copy</span>
             </>
           )}
         </button>
