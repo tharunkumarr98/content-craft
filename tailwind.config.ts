@@ -66,6 +66,14 @@ export default {
           DEFAULT: "hsl(220, 20%, 15%)",
           dark: "hsl(220, 20%, 10%)",
         },
+        link: {
+          DEFAULT: "hsl(var(--link))",
+          hover: "hsl(var(--link-hover))",
+        },
+        "inline-code": {
+          bg: "hsl(var(--inline-code-bg))",
+          text: "hsl(var(--inline-code-text))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
