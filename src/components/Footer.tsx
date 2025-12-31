@@ -11,7 +11,7 @@ const Footer = () => {
               Techie<span className="text-primary">Tips</span>
             </Link>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Technical insights on Microsoft Fabric, Power BI, and modern data analytics. No fluff, just practical knowledge.
+              Knowledge hub for Modern Data Analytics.
             </p>
           </div>
           
