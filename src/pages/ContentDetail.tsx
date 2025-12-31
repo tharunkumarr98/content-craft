@@ -125,7 +125,6 @@ const ContentDetail = ({ type }: ContentDetailProps) => {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-14">
           <div className="max-w-3xl animate-fade-in-up">
             <MarkdownRenderer content={item.content} />
-            <ContactCTA subject={`Re: ${item.title}`} />
           </div>
           
           {type !== "dashboard" && (
@@ -148,6 +147,10 @@ const ContentDetail = ({ type }: ContentDetailProps) => {
           </div>
         </section>
       )}
+
+      <section className="container pb-16">
+        <ContactCTA subject={`Re: ${item.title}`} />
+      </section>
     </Layout>
   );
 };
