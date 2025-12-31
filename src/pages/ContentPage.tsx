@@ -1,13 +1,15 @@
-import { useMemo } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Layout from "@/components/Layout";
 import ContentCard from "@/components/ContentCard";
-import Newsletter from "@/components/Newsletter";
+import ContactCTA from "@/components/ContactCTA";
+import SearchInput from "@/components/SearchInput";
 import { 
   getContentByType, 
   getPrimaryTags, 
   getContentByPrimaryTag,
+  searchContent,
   ContentType 
 } from "@/lib/content";
 
@@ -18,14 +20,26 @@ interface ContentPageProps {
 const ContentPage = ({ type }: ContentPageProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedTag = searchParams.get("tag");
+  const [searchQuery, setSearchQuery] = useState("");
   
   const primaryTags = getPrimaryTags(type);
   
   const content = useMemo(() => {
+    // If searching, use search function
+    if (searchQuery.trim()) {
+      const searchResults = searchContent(type, searchQuery);
+      // If also filtered by tag, filter the search results
+      if (selectedTag) {
+        return searchResults.filter((item) => item.tags[0] === selectedTag);
+      }
+      return searchResults;
+    }
+    
+    // Otherwise, filter by tag or show all
     return selectedTag 
       ? getContentByPrimaryTag(type, selectedTag) 
       : getContentByType(type);
-  }, [type, selectedTag]);
+  }, [type, selectedTag, searchQuery]);
 
   const handleTagClick = (tag: string | null) => {
     if (tag) {
@@ -34,6 +48,10 @@ const ContentPage = ({ type }: ContentPageProps) => {
       setSearchParams({});
     }
   };
+
+  const handleSearch = useCallback((query: string) => {
+    setSearchQuery(query);
+  }, []);
 
   const getTypeLabel = () => {
     switch (type) {
@@ -81,6 +99,14 @@ const ContentPage = ({ type }: ContentPageProps) => {
             )}
           </p>
         </div>
+
+        {/* Search Input */}
+        <div className="mb-8">
+          <SearchInput 
+            onSearch={handleSearch}
+            placeholder={`Search ${getTypeLabel().toLowerCase()}...`}
+          />
+        </div>
         
         {/* Primary tag filters */}
         {primaryTags.length > 0 && (
@@ -125,13 +151,13 @@ const ContentPage = ({ type }: ContentPageProps) => {
         
         {content.length === 0 && (
           <p className="text-muted-foreground text-center py-16">
-            No {getTypeLabel().toLowerCase()} found.
+            {searchQuery ? `No ${getTypeLabel().toLowerCase()} found matching "${searchQuery}".` : `No ${getTypeLabel().toLowerCase()} found.`}
           </p>
         )}
       </section>
 
       <section className="container pb-16">
-        <Newsletter />
+        <ContactCTA />
       </section>
     </Layout>
   );

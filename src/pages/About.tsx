@@ -1,6 +1,5 @@
 import { Helmet } from "react-helmet-async";
 import Layout from "@/components/Layout";
-import Newsletter from "@/components/Newsletter";
 import ContactCTA from "@/components/ContactCTA";
 
 const About = () => {
@@ -71,10 +70,6 @@ const About = () => {
         <div className="mt-12">
           <ContactCTA />
         </div>
-      </section>
-
-      <section className="container pb-16 max-w-3xl">
-        <Newsletter />
       </section>
     </Layout>
   );
