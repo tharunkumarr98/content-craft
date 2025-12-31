@@ -148,10 +148,6 @@ const ContentDetail = ({ type }: ContentDetailProps) => {
           </div>
         </section>
       )}
-
-      <section className="container pb-16">
-        <ContactCTA />
-      </section>
     </Layout>
   );
 };
