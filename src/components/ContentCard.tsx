@@ -31,7 +31,7 @@ const ContentCard = ({ item }: ContentCardProps) => {
     <article className="group p-6 rounded-xl bg-card border border-border/50 shadow-card card-hover">
       <Link to={getRoute()} className="block">
         <div className="flex flex-wrap gap-2 mb-4">
-          {item.tags.slice(0, 3).map((tag, index) => (
+          {item.tags.map((tag, index) => (
             <TagBadge key={tag} tag={tag} clickable={false} isPrimary={index === 0} />
           ))}
         </div>

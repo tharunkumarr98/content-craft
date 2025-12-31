@@ -149,6 +149,31 @@ export function getAllTagsForType(type: ContentType): string[] {
   return Array.from(tags).sort();
 }
 
+// Search content by query (searches title, tags, and content body)
+export function searchContent(type: ContentType, query: string): ContentItem[] {
+  if (!query.trim()) {
+    return getContentByType(type);
+  }
+  
+  const searchTerms = query.toLowerCase().trim().split(/\s+/);
+  const items = getContentByType(type);
+  
+  return items.filter((item) => {
+    const titleLower = item.title.toLowerCase();
+    const summaryLower = item.summary.toLowerCase();
+    const contentLower = item.content.toLowerCase();
+    const tagsLower = item.tags.map((t) => t.toLowerCase());
+    
+    // All search terms must match somewhere
+    return searchTerms.every((term) => 
+      titleLower.includes(term) ||
+      summaryLower.includes(term) ||
+      contentLower.includes(term) ||
+      tagsLower.some((tag) => tag.includes(term))
+    );
+  });
+}
+
 // Legacy support - keep these for backward compatibility
 export function getAllPosts(): ContentItem[] {
   return getArticles();

@@ -18,6 +18,11 @@ const languageMap: Record<string, string> = {
   ps1: "powershell",
   shell: "bash",
   cli: "bash",
+  powerfx: "javascript", // PowerFx similar to Excel/JS syntax
+  fx: "javascript",
+  url: "uri",
+  html: "markup",
+  htm: "markup",
 };
 
 // Custom theme with high contrast colors

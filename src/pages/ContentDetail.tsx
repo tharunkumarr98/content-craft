@@ -5,7 +5,6 @@ import Layout from "@/components/Layout";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import TableOfContents from "@/components/TableOfContents";
 import TagBadge from "@/components/TagBadge";
-import Newsletter from "@/components/Newsletter";
 import ContactCTA from "@/components/ContactCTA";
 import ContentCard from "@/components/ContentCard";
 import { getContentBySlug, getContentByType, ContentType } from "@/lib/content";
@@ -151,7 +150,7 @@ const ContentDetail = ({ type }: ContentDetailProps) => {
       )}
 
       <section className="container pb-16">
-        <Newsletter />
+        <ContactCTA />
       </section>
     </Layout>
   );

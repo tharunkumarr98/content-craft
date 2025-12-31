@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import ContentToggle from "@/components/ContentToggle";
 import TechCloud from "@/components/TechCloud";
-import Newsletter from "@/components/Newsletter";
+import ContactCTA from "@/components/ContactCTA";
 import ContentCard from "@/components/ContentCard";
 import { getArticles, getTips, getDashboards, ContentType } from "@/lib/content";
 
@@ -112,7 +112,7 @@ const Index = () => {
       </section>
 
       <section className="container pb-20">
-        <Newsletter />
+        <ContactCTA />
       </section>
     </Layout>
   );
