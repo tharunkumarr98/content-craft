@@ -61,6 +61,8 @@
     --shadow-md: 0 4px 6px -1px hsl(220 20% 15% / 0.05), 0 2px 4px -2px hsl(220 20% 15% / 0.05);
     --shadow-lg: 0 10px 15px -3px hsl(220 20% 15% / 0.08), 0 4px 6px -4px hsl(220 20% 15% / 0.05);
     --shadow-card: 0 1px 3px 0 hsl(220 20% 15% / 0.04), 0 1px 2px -1px hsl(220 20% 15% / 0.04);
+    /* Dynamic header offset for anchor scrolling (px) */
+    --header-offset: 0px;
   }
 
   .dark {
@@ -283,4 +285,16 @@
 /* Selection color */
 ::selection {
   background-color: hsl(var(--primary) / 0.2);
+}
+
+/* Dynamic anchor offset so in-page links scroll to visible position below sticky header */
+/* Apply to any element that can be targetted via #hash */
+[id] {
+  scroll-margin-top: var(--header-offset);
+  scroll-margin-block-start: var(--header-offset);
+}
+
+/* Also ensure prose headings respect the offset in case they are the target */
+.prose-blog h1[id], .prose-blog h2[id], .prose-blog h3[id], .prose-blog h4[id], .prose-blog h5[id], .prose-blog h6[id] {
+  scroll-margin-top: var(--header-offset);
 }

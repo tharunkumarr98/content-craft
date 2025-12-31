@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const Header = () => {
   const location = useLocation();
@@ -19,8 +19,36 @@ const Header = () => {
     { path: "/about", label: "About" },
   ];
 
+  const headerRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const setOffset = () => {
+      const el = headerRef.current as HTMLElement | null;
+      const height = el ? Math.ceil(el.getBoundingClientRect().height) : 0;
+      document.documentElement.style.setProperty("--header-offset", `${height}px`);
+    };
+
+    // Initial set
+    setOffset();
+
+    // ResizeObserver to watch header size changes (e.g., mobile menu open)
+    let ro: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined" && headerRef.current) {
+      ro = new ResizeObserver(() => setOffset());
+      ro.observe(headerRef.current);
+    }
+
+    // Fallback: window resize
+    window.addEventListener("resize", setOffset);
+
+    return () => {
+      window.removeEventListener("resize", setOffset);
+      if (ro) ro.disconnect();
+    };
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
+    <header ref={headerRef} className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center space-x-2 group">
           <span className="text-xl font-bold text-foreground tracking-tight">
