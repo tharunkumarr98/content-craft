@@ -110,15 +110,13 @@ const About = () => {
               Philosophy
             </h2>
             
-            <p className="text-muted-foreground leading-relaxed mb-8">
+            <p className="text-muted-foreground leading-relaxed">
               I believe in knowledge sharing, and my goal with TechieTips is to provide ad free content for data professionals.
             </p>
-
-            <div className="mt-12">
-              <ContactCTA />
-            </div>
           </div>
         </div>
+        
+        <ContactCTA />
       </section>
     </Layout>
   );
