@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Layout from "@/components/Layout";
 import ContactCTA from "@/components/ContactCTA";
+import Connect from "@/components/Connect";
 import aboutPhoto from "@/assets/about-photo.jpg";
 
 const About = () => {
@@ -12,9 +13,7 @@ const About = () => {
       </Helmet>
       
       <section className="container py-12 max-w-5xl animate-fade-in">
-        <h1 className="text-3xl md:text-4xl font-bold text-anthracite mb-10 tracking-tight">
-          About
-        </h1>
+       
         
         <div className="flex flex-col md:flex-row gap-10 md:gap-12">
           {/* Left Column - Photo & Credentials */}
@@ -26,38 +25,39 @@ const About = () => {
             />
             
             {/* Profile Info */}
-            <div className="max-w-[280px]">
+            <div className="max-w-[350px]">
               <h2 className="text-xl font-semibold text-anthracite mb-1">
                 Tharun Kumar Ravikrindhi
               </h2>
-              <p className="text-sm font-medium text-teal mb-3">
-                Senior Data Engineer at Tiger Analytics
+              <p className="text-sm font-small text-teal mb-3">
+                 💼 Senior Data Engineer at Tiger Analytics
               </p>
-              
-              <div className="space-y-2 text-sm text-muted-foreground">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-teal flex-shrink-0" />
-                  <span>Super User in Microsoft Fabric Community</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-teal flex-shrink-0" />
-                  <span>8X Microsoft Certified</span>
-                </div>
-              </div>
+               <p className="text-sm font-medium text-teal mb-3">
+                👮‍♂️ Super User in Fabric Community
+              </p>
+               <p className="text-sm font-medium text-teal mb-3">
+                🏅 8X Microsoft Certified
+              </p>
+            </div>
+            
+            {/* Reuse Connect block from footer */}
+            <div className="mt-6 max-w-[350px]">
+              <Connect />
             </div>
           </div>
           
           {/* Right Column - Content */}
           <div className="md:w-2/3 prose-blog">
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Welcome to TechieTips! This website is dedicated to sharing practical knowledge 
-              about modern data analytics, with a focus on the Microsoft data platform.
+              Welcome to TechieTips! I share practical insights from building data analytics solutions using the Microsoft data ecosystem.
             </p>
             
             <h2 className="text-2xl font-semibold text-anthracite mt-8 mb-6">
-              What I Write About
+              I Write About
             </h2>
-            
+            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+              Real-world experiences, observations, and best practices from working in data analytics and data engineering, with a focus on:
+            </p>
             <ul className="space-y-4 text-muted-foreground mb-10">
               <li className="flex items-start gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
@@ -65,27 +65,15 @@ const About = () => {
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
-                <span><strong className="text-anthracite font-medium">Power BI</strong></span>
+                <span><strong className="text-anthracite font-medium">Microsoft Power BI</strong></span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
-                <span><strong className="text-anthracite font-medium">DAX</strong></span>
+                <span><strong className="text-anthracite font-medium">Microsoft Power Automate</strong></span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
-                <span><strong className="text-anthracite font-medium">Power Query (M)</strong></span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
-                <span><strong className="text-anthracite font-medium">SQL</strong></span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
-                <span><strong className="text-anthracite font-medium">Python</strong></span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal mt-2.5 flex-shrink-0" />
-                <span><strong className="text-anthracite font-medium">PowerShell</strong></span>
+                <span><strong className="text-anthracite font-medium">Microsoft Power Apps</strong></span>
               </li>
             </ul>
             
@@ -94,7 +82,7 @@ const About = () => {
             </h2>
             
             <p className="text-muted-foreground leading-relaxed">
-              I believe in knowledge sharing, and my goal with TechieTips is to provide ad free content for data professionals.
+              I believe in learning through sharing. This space is about exchanging knowledge, growing together, and continuously improving, one insight at a time.
             </p>
           </div>
         </div>
