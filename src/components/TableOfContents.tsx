@@ -74,6 +74,54 @@ const TableOfContents = ({ content }: TableOfContentsProps) => {
     };
   }, [headings]);
 
+  // Scroll handler fallback: compute which heading is nearest to the header
+  useEffect(() => {
+    if (headings.length === 0) return;
+
+    let raf = 0;
+
+    const getHeaderOffset = () => {
+      const val = getComputedStyle(document.documentElement).getPropertyValue("--header-offset") || "0px";
+      return parseInt(val.trim().replace("px", "")) || 0;
+    };
+
+    const onScroll = () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const headerOffset = getHeaderOffset();
+        let bestId = "";
+        let bestDistance = Infinity;
+
+        headings.forEach(({ id }) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          const rect = el.getBoundingClientRect();
+          const distance = Math.abs(rect.top - headerOffset);
+          if (distance < bestDistance) {
+            bestDistance = distance;
+            bestId = id;
+          }
+        });
+
+        if (bestId && bestId !== activeId) {
+          setActiveId(bestId);
+        }
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    // run once to initialize
+    onScroll();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [headings, activeId]);
+
   if (headings.length === 0) return null;
 
   return (
