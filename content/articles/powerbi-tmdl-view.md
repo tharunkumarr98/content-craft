@@ -218,6 +218,8 @@ You will see the new partitions under the table in Model Explorer.
 
 I hope you find this information useful, If I missed any other TMDL capabilities that were not possible through the Power BI Desktop GUI, please share them with me.
 
-Note: After updating the partitions, refresh the data in the table.
+**Note**: After updating the partitions, refresh the data in the table.
 
 I hope you find this information useful, If I missed any other TMDL capabilities that were not possible through the Power BI Desktop GUI, please share them with me.
+
+Happy Learning!!!
