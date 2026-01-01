@@ -3,7 +3,7 @@ title: "Macro Dashboard"
 date: "2025-10-06"
 summary: "An overview of Macro economy trends and performance."
 tags: ["Power BI", "Macro Economics", "Dashboard"]
-embedUrl: "https://app.powerbi.com/view?r=eyJrIjoiZmVlNjhjMGUtYjczYy00MTEzLWIzYzItMTEwZDkxY2Q1ZTBiIiwidCI6IjcwZTZjYzU5LWEwZDUtNDc4YS1iOGI5LTY3OGNjZTJlM2E2MyJ9"
+embedUrl: "https://app.powerbi.com/view?r=eyJrIjoiMmJhODE2NmEtZGEyZC00MTc4LTk4YTUtMGZkYzA3MTU4MTg0IiwidCI6IjcwZTZjYzU5LWEwZDUtNDc4YS1iOGI5LTY3OGNjZTJlM2E2MyJ9"
 ---
 For better viewing experinece keep the zoom level to 70%
 ## Dashboard Overview
