@@ -21,44 +21,27 @@ const About = () => {
           <div className="md:w-1/3 flex-shrink-0">
             <img 
               src={aboutPhoto} 
-              alt="Tharun Kumar" 
-              className="w-full max-w-[280px] rounded-lg shadow-md mb-6"
+              alt="Tharun Kumar Ravikrindhi" 
+              className="w-full max-w-[280px] rounded-lg shadow-md mb-5"
             />
             
-            {/* Credentials Section */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-anthracite">Credentials</h3>
+            {/* Profile Info */}
+            <div className="max-w-[280px]">
+              <h2 className="text-xl font-semibold text-anthracite mb-1">
+                Tharun Kumar Ravikrindhi
+              </h2>
+              <p className="text-sm font-medium text-teal mb-3">
+                Senior Data Engineer at Tiger Analytics
+              </p>
               
-              <div className="space-y-3 text-sm">
-                <div>
-                  <p className="font-medium text-anthracite">Profession</p>
-                  <p className="text-muted-foreground">Data Analytics Professional</p>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal flex-shrink-0" />
+                  <span>Super User in Microsoft Fabric Community</span>
                 </div>
-                
-                <div>
-                  <p className="font-medium text-anthracite">Certifications</p>
-                  <ul className="text-muted-foreground space-y-1 mt-1">
-                    <li className="flex items-start gap-2">
-                      <span className="w-1 h-1 rounded-full bg-teal mt-2 flex-shrink-0" />
-                      <span>Microsoft Certified: Power BI Data Analyst</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-1 h-1 rounded-full bg-teal mt-2 flex-shrink-0" />
-                      <span>Microsoft Certified: Fabric Analytics Engineer</span>
-                    </li>
-                    {/* Add more certifications here */}
-                  </ul>
-                </div>
-                
-                <div>
-                  <p className="font-medium text-anthracite">Recognitions</p>
-                  <ul className="text-muted-foreground space-y-1 mt-1">
-                    <li className="flex items-start gap-2">
-                      <span className="w-1 h-1 rounded-full bg-teal mt-2 flex-shrink-0" />
-                      <span>Microsoft MVP</span>
-                    </li>
-                    {/* Add more recognitions here */}
-                  </ul>
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal flex-shrink-0" />
+                  <span>8X Microsoft Certified</span>
                 </div>
               </div>
             </div>
