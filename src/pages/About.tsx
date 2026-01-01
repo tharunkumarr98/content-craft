@@ -115,7 +115,9 @@ const About = () => {
             </p>
           </div>
         </div>
-        
+      </section>
+      
+      <section className="container pb-16 max-w-5xl">
         <ContactCTA />
       </section>
     </Layout>
