@@ -29,7 +29,7 @@ const About = () => {
               <h2 className="text-xl font-semibold text-anthracite mb-1">
                 Tharun Kumar Ravikrindhi
               </h2>
-              <p className="text-sm font-small text-teal mb-3">
+              <p className="text-sm font-medium text-teal mb-3">
                  💼 Senior Data Engineer at Tiger Analytics
               </p>
                <p className="text-sm font-medium text-teal mb-3">
