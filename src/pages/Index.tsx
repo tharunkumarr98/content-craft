@@ -113,13 +113,15 @@ const Index = () => {
           </Link>
         </div>
         
-        {/* TechCloud placed below the content navigation */}
-        <div className="mb-10">
-          <TechCloud 
-            onTechClick={setSelectedTech} 
-            activeTech={selectedTech} 
-          />
-        </div>
+        {/* TechCloud - only show for Articles and Tips, not Dashboards */}
+        {activeType !== "dashboard" && (
+          <div className="mb-10">
+            <TechCloud 
+              onTechClick={setSelectedTech} 
+              activeTech={selectedTech} 
+            />
+          </div>
+        )}
         
         {hasNoContent ? (
           <div className="flex flex-col items-center justify-center py-16 text-center animate-fade-in">
