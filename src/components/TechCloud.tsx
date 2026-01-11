@@ -131,7 +131,8 @@ const TechCloud = ({ onTechClick, activeTech }: TechCloudProps) => {
 
   return (
     <div className="py-2 mt-0 md:mt-6">
-      <div className="flex flex-wrap justify-center md:justify-start gap-4 pr-6">
+      {/* Mobile: single-line left aligned, horizontally scrollable */}
+  <div className="flex flex-nowrap md:flex-wrap justify-center md:justify-start gap-2 md:gap-4 pr-2 md:pr-6 overflow-x-auto md:overflow-visible touch-pan-x" style={{ WebkitOverflowScrolling: 'touch' }}>
         {/* All button to clear filter */}
         {onTechClick && (
           <button
@@ -152,25 +153,32 @@ const TechCloud = ({ onTechClick, activeTech }: TechCloudProps) => {
             <button
               key={icon.name}
               onClick={() => handleTechClick(icon.name)}
-              className={`group flex items-center gap-3 p-2 pr-3 rounded-lg border shadow-sm transition-all duration-300 animate-fade-in cursor-pointer ${
+              className={`group flex items-center justify-center md:justify-start gap-2 md:gap-3 px-2 md:px-3 py-1 md:py-2 rounded-lg border shadow-sm cursor-pointer transition-colors duration-150 ease-out will-change-transform min-w-0 ${
                 isActive
                   ? "bg-primary/10 border-primary shadow-md ring-2 ring-primary/20"
                   : "bg-card border-border/50 hover:shadow-md hover:border-primary/30"
               }`}
-              style={{ animationDelay: `${index * 80}ms`, minWidth: 160, maxWidth: 180 }}
+              style={{ animationDelay: `${index * 40}ms` }}
+              aria-pressed={isActive}
+              // Responsive sizing: compact on small screens, fixed-ish on md+
+              // min-w on mobile reduced so items wrap cleanly
+              
             >
               <img
                 src={icon.src}
                 alt={icon.name}
                 title={icon.name}
-                className={`w-8 h-8 flex-shrink-0 object-contain transition-transform duration-300 ${
+                className={`w-6 h-6 md:w-8 md:h-8 flex-shrink-0 object-contain transition-transform duration-150 ease-out ${
                   isActive ? "scale-110" : "group-hover:scale-110"
                 }`}
               />
 
-              <span className={`text-sm font-medium truncate text-left ${
-                isActive ? "text-primary" : "text-foreground"
-              }`}>
+              <span
+                className={`hidden md:inline-block text-sm font-medium truncate ${
+                  isActive ? "text-primary" : "text-foreground"
+                } md:max-w-[140px] md:flex-1 md:text-left`}
+                style={{ minWidth: 0 }}
+              >
                 {icon.name}
               </span>
             </button>

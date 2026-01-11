@@ -104,14 +104,8 @@ const Index = () => {
       {/* Content Section */}
       <section className="container pb-20">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-6">
-          <ContentToggle activeType={activeType} onTypeChange={setActiveType} />
-          <Link 
-            to={getTypeRoute()} 
-            className="flex items-center gap-2 text-sm font-medium text-primary hover:gap-3 transition-all duration-200"
-          >
-            View all {getTypeLabel().toLowerCase()} <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
+            <ContentToggle activeType={activeType} onTypeChange={setActiveType} />
+          </div>
         
         {/* TechCloud - only show for Articles and Tips, not Dashboards */}
         {activeType !== "dashboard" && (
@@ -145,16 +139,26 @@ const Index = () => {
             </button>
           </div>
         ) : (
-          <div className="grid gap-6">
-            {content.map((item, index) => (
-              <article 
-                key={item.slug} 
-                className="animate-fade-in-up"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <ContentCard item={item} />
-              </article>
-            ))}
+          <div className="relative">
+            <div className="grid gap-6 pb-12">
+              {content.map((item, index) => (
+                <article 
+                  key={item.slug} 
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <ContentCard item={item} />
+                </article>
+              ))}
+            </div>
+
+            {/* View all positioned at bottom-right of content list */}
+            <Link 
+              to={getTypeRoute()} 
+              className="absolute right-0 bottom-0 flex items-center gap-2 text-sm font-medium text-primary hover:gap-3 transition-all duration-200"
+            >
+              View all {getTypeLabel().toLowerCase()} <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         )}
       </section>
