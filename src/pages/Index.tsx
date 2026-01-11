@@ -101,17 +101,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* TechCloud placed above the content navigation with bottom padding */}
-      <div className="container pb-8">
-        <TechCloud 
-          onTechClick={setSelectedTech} 
-          activeTech={selectedTech} 
-        />
-      </div>
-
       {/* Content Section */}
       <section className="container pb-20">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-6">
           <ContentToggle activeType={activeType} onTypeChange={setActiveType} />
           <Link 
             to={getTypeRoute()} 
@@ -119,6 +111,14 @@ const Index = () => {
           >
             View all {getTypeLabel().toLowerCase()} <ArrowRight className="h-4 w-4" />
           </Link>
+        </div>
+        
+        {/* TechCloud placed below the content navigation */}
+        <div className="mb-10">
+          <TechCloud 
+            onTechClick={setSelectedTech} 
+            activeTech={selectedTech} 
+          />
         </div>
         
         {hasNoContent ? (

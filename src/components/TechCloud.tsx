@@ -163,18 +163,16 @@ const TechCloud = ({ onTechClick, activeTech }: TechCloudProps) => {
                 src={icon.src}
                 alt={icon.name}
                 title={icon.name}
-                className={`w-8 h-8 object-contain transition-transform duration-300 ${
+                className={`w-8 h-8 flex-shrink-0 object-contain transition-transform duration-300 ${
                   isActive ? "scale-110" : "group-hover:scale-110"
                 }`}
               />
 
-              <div className="flex-1 min-w-0">
-                <span className={`block text-sm font-medium truncate ${
-                  isActive ? "text-primary" : "text-foreground"
-                }`}>
-                  {icon.name}
-                </span>
-              </div>
+              <span className={`text-sm font-medium truncate text-left ${
+                isActive ? "text-primary" : "text-foreground"
+              }`}>
+                {icon.name}
+              </span>
             </button>
           );
         })}
