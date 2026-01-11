@@ -20,5 +20,5 @@ Comprehensive Stock Market Research Dashboard covering:
 
 🌟 **One-Page Simplicity**: A clean, efficient one-page dashboard that’s all about clarity and insight.
 
-### Insights Provided
+You can download the PBIX file from [here](https://bit.ly/4puy2uZ)
 

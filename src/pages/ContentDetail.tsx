@@ -6,6 +6,7 @@ import MarkdownRenderer from "@/components/MarkdownRenderer";
 import TableOfContents from "@/components/TableOfContents";
 import TagBadge from "@/components/TagBadge";
 import ContactCTA from "@/components/ContactCTA";
+import Comments from "@/components/Comments";
 import ContentCard from "@/components/ContentCard";
 import { getContentBySlug, getContentByType, ContentType } from "@/lib/content";
 
@@ -132,6 +133,11 @@ const ContentDetail = ({ type }: ContentDetailProps) => {
               <TableOfContents content={item.content} />
             </aside>
           )}
+        </div>
+
+        {/* Comments: show for all content types (including dashboards); left-aligned with article width */}
+        <div className="max-w-3xl">
+          <Comments mapping="specific" term={item.slug} />
         </div>
       </article>
 
