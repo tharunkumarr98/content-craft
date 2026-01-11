@@ -3,6 +3,12 @@ import { useEffect, useState } from "react";
 interface TechIcon {
   name: string;
   src: string;
+  tagMatches: string[]; // Tags this icon should match against
+}
+
+interface TechCloudProps {
+  onTechClick?: (tech: string | null) => void;
+  activeTech?: string | null;
 }
 
 // Import all icons from the public/icons folder
@@ -12,7 +18,16 @@ const iconModules = import.meta.glob("/public/icons/*.{png,svg,jpg,jpeg,webp}", 
   import: "default",
 });
 
-const TechCloud = () => {
+// Mapping from icon names to content tags they should match
+const tagMapping: Record<string, string[]> = {
+  "Power BI": ["Power BI"],
+  "Fabric": ["Fabric", "Microsoft Fabric"],
+  "Power Apps": ["Power Apps", "PowerApps"],
+  "Power Automate": ["Power Automate", "PowerAutomate"],
+  "Synapse": ["Synapse"],
+};
+
+const TechCloud = ({ onTechClick, activeTech }: TechCloudProps) => {
   const [icons, setIcons] = useState<TechIcon[]>([]);
 
   useEffect(() => {
@@ -31,6 +46,7 @@ const TechCloud = () => {
       loadedIcons.push({
         name,
         src: url as string,
+        tagMatches: [],
       });
     }
 
@@ -48,12 +64,14 @@ const TechCloud = () => {
       microsoftfabric: "Fabric",
     };
 
-    // Apply display overrides where applicable
+    // Apply display overrides and tag mappings where applicable
     for (const ico of loadedIcons) {
       const key = normalize(ico.name);
       if (displayOverrides[key]) {
         ico.name = displayOverrides[key];
       }
+      // Set tag matches from mapping
+      ico.tagMatches = tagMapping[ico.name] || [ico.name];
     }
 
     loadedIcons.sort((a, b) => {
@@ -67,6 +85,16 @@ const TechCloud = () => {
 
     setIcons(loadedIcons);
   }, []);
+
+  const handleTechClick = (techName: string) => {
+    if (!onTechClick) return;
+    // Toggle: if already active, clear the filter
+    if (activeTech === techName) {
+      onTechClick(null);
+    } else {
+      onTechClick(techName);
+    }
+  };
 
   if (icons.length === 0) {
     // Fallback to text-based tech display if no icons
@@ -102,27 +130,54 @@ const TechCloud = () => {
   }
 
   return (
-    // Reduced top spacing so TechCloud sits closer to the hero
     <div className="py-2 mt-0 md:mt-6">
       <div className="flex flex-wrap justify-center md:justify-start gap-4 pr-6">
-        {icons.map((icon, index) => (
-          <div
-            key={icon.name}
-            className="group flex items-center gap-3 p-2 pr-3 rounded-lg bg-card border border-border/50 shadow-sm hover:shadow-md hover:border-primary/30 transition-all duration-300 animate-fade-in"
-            style={{ animationDelay: `${index * 80}ms`, minWidth: 160, maxWidth: 180 }}
+        {/* All button to clear filter */}
+        {onTechClick && (
+          <button
+            onClick={() => onTechClick(null)}
+            className={`group flex items-center gap-2 px-4 py-2 rounded-lg border shadow-sm transition-all duration-300 animate-fade-in ${
+              activeTech === null
+                ? "bg-primary text-primary-foreground border-primary shadow-md"
+                : "bg-card border-border/50 hover:shadow-md hover:border-primary/30"
+            }`}
           >
-            <img
-              src={icon.src}
-              alt={icon.name}
-              title={icon.name}
-              className="w-8 h-8 object-contain group-hover:scale-110 transition-transform duration-300"
-            />
+            <span className="text-sm font-medium">All</span>
+          </button>
+        )}
+        
+        {icons.map((icon, index) => {
+          const isActive = activeTech === icon.name;
+          return (
+            <button
+              key={icon.name}
+              onClick={() => handleTechClick(icon.name)}
+              className={`group flex items-center gap-3 p-2 pr-3 rounded-lg border shadow-sm transition-all duration-300 animate-fade-in cursor-pointer ${
+                isActive
+                  ? "bg-primary/10 border-primary shadow-md ring-2 ring-primary/20"
+                  : "bg-card border-border/50 hover:shadow-md hover:border-primary/30"
+              }`}
+              style={{ animationDelay: `${index * 80}ms`, minWidth: 160, maxWidth: 180 }}
+            >
+              <img
+                src={icon.src}
+                alt={icon.name}
+                title={icon.name}
+                className={`w-8 h-8 object-contain transition-transform duration-300 ${
+                  isActive ? "scale-110" : "group-hover:scale-110"
+                }`}
+              />
 
-            <div className="flex-1 min-w-0">
-              <span className="block text-sm font-medium text-foreground truncate">{icon.name}</span>
-            </div>
-          </div>
-        ))}
+              <div className="flex-1 min-w-0">
+                <span className={`block text-sm font-medium truncate ${
+                  isActive ? "text-primary" : "text-foreground"
+                }`}>
+                  {icon.name}
+                </span>
+              </div>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
