@@ -287,6 +287,19 @@
   background-color: hsl(var(--primary) / 0.2);
 }
 
+/* Giscus styling overrides */
+.giscus-wrapper {
+  @apply w-full;
+}
+
+.giscus-wrapper .giscus {
+  @apply w-full;
+}
+
+.giscus-wrapper .giscus-frame {
+  @apply w-full border-0;
+}
+
 /* Dynamic anchor offset so in-page links scroll to visible position below sticky header */
 /* Apply to any element that can be targetted via #hash */
 [id] {
