@@ -42,12 +42,17 @@ const Comments: React.FC<CommentsProps> = ({ mapping = "pathname", term }) => {
   return (
     <section className="mt-16 w-full">
       <h2 className="text-xl font-semibold text-foreground mb-6">Comments</h2>
-      {/* Force light background for Giscus light theme regardless of device/site theme */}
+      {/* 
+        Force light theme for Giscus using explicit theme URL.
+        The wrapper uses data-theme and colorScheme to prevent system dark mode detection.
+      */}
       <div 
         className="w-full rounded-lg p-4 giscus-wrapper"
+        data-theme="light"
         style={{ 
           backgroundColor: '#ffffff',
-          colorScheme: 'light'
+          colorScheme: 'light',
+          isolation: 'isolate'
         }}
       >
         {!mounted ? (
@@ -65,7 +70,7 @@ const Comments: React.FC<CommentsProps> = ({ mapping = "pathname", term }) => {
             reactionsEnabled="0"
             emitMetadata="0"
             inputPosition="top"
-            theme="light"
+            theme="https://giscus.app/themes/light.css"
             lang="en"
             loading="lazy"
           />
