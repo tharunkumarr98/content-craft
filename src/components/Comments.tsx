@@ -42,22 +42,16 @@ const Comments: React.FC<CommentsProps> = ({ mapping = "pathname", term }) => {
   return (
     <section className="mt-16 w-full">
       <h2 className="text-xl font-semibold text-foreground mb-6">Comments</h2>
-      {/* 
-        Force light theme for Giscus using explicit theme URL.
-        The wrapper uses data-theme and colorScheme to prevent system dark mode detection.
+
+      {/*
+        Giscus renders inside an iframe, so we:
+        1) Force a fixed light container (so it stays accessible in device/site dark mode)
+        2) Use a custom theme CSS that hides the built-in comment count/header
       */}
-      <div 
-        className="w-full rounded-lg p-4 giscus-wrapper"
-        data-theme="light"
-        style={{ 
-          backgroundColor: '#ffffff',
-          colorScheme: 'light',
-          isolation: 'isolate'
-        }}
-      >
+      <div className="w-full rounded-lg p-4 giscus-wrapper fixed-light-surface" data-theme="light">
         {!mounted ? (
-          <div className="p-6 rounded-lg" style={{ backgroundColor: '#f3f4f6' }}>
-            <div className="text-sm" style={{ color: '#6b7280' }}>Loading comments…</div>
+          <div className="p-6 rounded-lg fixed-light-muted">
+            <div className="text-sm">Loading comments…</div>
           </div>
         ) : (
           <Giscus
@@ -70,7 +64,7 @@ const Comments: React.FC<CommentsProps> = ({ mapping = "pathname", term }) => {
             reactionsEnabled="0"
             emitMetadata="0"
             inputPosition="top"
-            theme="https://giscus.app/themes/light.css"
+            theme="/giscus-light-overrides.css"
             lang="en"
             loading="lazy"
           />
