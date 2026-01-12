@@ -42,10 +42,17 @@ const Comments: React.FC<CommentsProps> = ({ mapping = "pathname", term }) => {
   return (
     <section className="mt-16 w-full">
       <h2 className="text-xl font-semibold text-foreground mb-6">Comments</h2>
-      <div className="w-full giscus-wrapper">
+      {/* Force light background for Giscus light theme regardless of device/site theme */}
+      <div 
+        className="w-full rounded-lg p-4 giscus-wrapper"
+        style={{ 
+          backgroundColor: '#ffffff',
+          colorScheme: 'light'
+        }}
+      >
         {!mounted ? (
-          <div className="p-6 rounded-lg bg-muted/30 border border-border/50">
-            <div className="text-sm text-muted-foreground">Loading comments…</div>
+          <div className="p-6 rounded-lg" style={{ backgroundColor: '#f3f4f6' }}>
+            <div className="text-sm" style={{ color: '#6b7280' }}>Loading comments…</div>
           </div>
         ) : (
           <Giscus
