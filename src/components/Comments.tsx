@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Giscus from "@giscus/react";
-import { useTheme } from "next-themes";
 
 interface CommentsProps {
   /** The discussion mapping term (url, pathname, title, or custom) */
@@ -10,17 +9,19 @@ interface CommentsProps {
 }
 
 const Comments: React.FC<CommentsProps> = ({ mapping = "pathname", term }) => {
-  // Load configuration from Vite env vars if present, otherwise fall back to the
-  // explicit values you provided.
   const repo = (import.meta.env.VITE_GISCUS_REPO as string | undefined) || "tharunkumarr98/content-craft";
   const repoId = (import.meta.env.VITE_GISCUS_REPOSITORY_ID as string | undefined) || "R_kgDOQwBf1w";
   const category = (import.meta.env.VITE_GISCUS_CATEGORY as string | undefined) || "General";
   const categoryId = (import.meta.env.VITE_GISCUS_CATEGORY_ID as string | undefined) || "DIC_kwDOQwBf184C00hf";
-  // default mapping/term per the script you provided (you can override via props)
   const defaultMapping: CommentsProps["mapping"] = "specific";
   const defaultTerm = "Blog Comments";
 
-  // If not configured (shouldn't happen because we have fallbacks), show a helpful placeholder.
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   if (!repo || !repoId || !category || !categoryId) {
     return (
       <div className="mt-12 p-4 rounded-md bg-card border border-border/50 text-sm text-muted-foreground">
@@ -36,47 +37,34 @@ const Comments: React.FC<CommentsProps> = ({ mapping = "pathname", term }) => {
     );
   }
 
-  // Build mapping term. Use the provided mapping/term props when given; otherwise use
-  // the defaults from the script you provided.
   const mappingValue = mapping ? (mapping === "specific" ? (term || defaultTerm) : mapping) : defaultMapping;
-  // Use site theme (next-themes) so giscus matches the site appearance.
-  const { theme: siteTheme = "system" } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const giscusTheme = siteTheme === "dark" ? "dark" : siteTheme === "light" ? "light" : "preferred_color_scheme";
 
   return (
-    <div className="mt-12 w-full">
-      <div className="w-full bg-card border border-border/50 rounded-lg overflow-hidden">
-        <div className="px-4 py-3 border-b border-border/50 bg-card/50 text-sm font-semibold text-foreground">
-          Comments
-        </div>
-        <div className="px-4 py-6">
-          {!mounted ? (
+    <section className="mt-16 w-full">
+      <h2 className="text-xl font-semibold text-foreground mb-6">Comments</h2>
+      <div className="w-full giscus-wrapper">
+        {!mounted ? (
+          <div className="p-6 rounded-lg bg-muted/30 border border-border/50">
             <div className="text-sm text-muted-foreground">Loading comments…</div>
-          ) : (
-            <Giscus
-              repo={repo}
-              repoId={repoId}
-              category={category}
-              categoryId={categoryId}
-              mapping={mappingValue}
-              term={mapping === "specific" ? (term || defaultTerm) : undefined}
-              reactionsEnabled={"0"}
-              emitMetadata={"1"}
-              inputPosition={"top"}
-              theme={giscusTheme}
-              lang={"en"}
-              loading={"lazy"}
-            />
-          )}
-        </div>
+          </div>
+        ) : (
+          <Giscus
+            repo={repo}
+            repoId={repoId}
+            category={category}
+            categoryId={categoryId}
+            mapping={mappingValue}
+            term={mapping === "specific" ? (term || defaultTerm) : undefined}
+            reactionsEnabled="1"
+            emitMetadata="0"
+            inputPosition="top"
+            theme="light"
+            lang="en"
+            loading="lazy"
+          />
+        )}
       </div>
-    </div>
+    </section>
   );
 };
 
