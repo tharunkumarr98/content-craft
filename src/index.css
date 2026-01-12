@@ -63,6 +63,13 @@
     --shadow-card: 0 1px 3px 0 hsl(220 20% 15% / 0.04), 0 1px 2px -1px hsl(220 20% 15% / 0.04);
     /* Dynamic header offset for anchor scrolling (px) */
     --header-offset: 0px;
+
+    /* Fixed light surface (used for embeds like Giscus; identical in light/dark) */
+    --fixed-surface: 0 0% 100%;
+    --fixed-surface-foreground: 220 20% 15%;
+    --fixed-surface-border: 214 30% 88%;
+    --fixed-surface-muted: 214 60% 96%;
+    --fixed-surface-muted-foreground: 220 10% 45%;
   }
 
   .dark {
@@ -116,6 +123,13 @@
     --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -2px hsl(0 0% 0% / 0.2);
     --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.4), 0 4px 6px -4px hsl(0 0% 0% / 0.2);
     --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.2), 0 1px 2px -1px hsl(0 0% 0% / 0.15);
+
+    /* Fixed light surface (used for embeds like Giscus; identical in light/dark) */
+    --fixed-surface: 0 0% 100%;
+    --fixed-surface-foreground: 220 20% 15%;
+    --fixed-surface-border: 214 30% 88%;
+    --fixed-surface-muted: 214 60% 96%;
+    --fixed-surface-muted-foreground: 220 10% 45%;
   }
 }
 
@@ -261,6 +275,20 @@
 
   .content-toggle-item:hover:not([data-state="active"]) {
     @apply text-foreground;
+  }
+
+  /* Fixed light surface (stays light even when site/device is dark) */
+  .fixed-light-surface {
+    background-color: hsl(var(--fixed-surface));
+    color: hsl(var(--fixed-surface-foreground));
+    border: 1px solid hsl(var(--fixed-surface-border));
+    color-scheme: light;
+    isolation: isolate;
+  }
+
+  .fixed-light-muted {
+    background-color: hsl(var(--fixed-surface-muted));
+    color: hsl(var(--fixed-surface-muted-foreground));
   }
 }
 

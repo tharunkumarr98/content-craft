@@ -1,0 +1,20 @@
+@import url("https://giscus.app/themes/light.css");
+
+/*
+  Hide the built-in header which shows "0 comments".
+  This avoids contrast issues in some mobile/device dark-mode combinations.
+*/
+.gsc-header,
+.gsc-comments-count {
+  display: none !important;
+}
+
+/* Reactions are disabled in the component, but hide defensively anyway */
+.gsc-reactions {
+  display: none !important;
+}
+
+/* Remove extra space at the top after hiding header */
+.gsc-main {
+  padding-top: 0 !important;
+}
