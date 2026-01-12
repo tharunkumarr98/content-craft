@@ -55,7 +55,7 @@ const Comments: React.FC<CommentsProps> = ({ mapping = "pathname", term }) => {
             categoryId={categoryId}
             mapping={mappingValue}
             term={mapping === "specific" ? (term || defaultTerm) : undefined}
-            reactionsEnabled="1"
+            reactionsEnabled="0"
             emitMetadata="0"
             inputPosition="top"
             theme="light"
