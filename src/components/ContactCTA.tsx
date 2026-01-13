@@ -1,4 +1,4 @@
-import { Mail, Bell } from "lucide-react";
+import { Mail, Newspaper } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SubscribeDialog from "@/components/SubscribeDialog";
 
@@ -27,8 +27,8 @@ const ContactCTA = ({
         <div className="flex flex-col sm:flex-row gap-3">
           <SubscribeDialog
             trigger={
-              <Button variant="outline" className="gap-2 shadow-sm">
-                <Bell className="h-4 w-4" />
+              <Button className="gap-2 shadow-sm">
+                <Newspaper className="h-4 w-4" />
                 Subscribe
               </Button>
             }
