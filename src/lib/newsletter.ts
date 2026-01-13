@@ -1,17 +1,19 @@
 /**
  * Newsletter subscription service
  * 
- * Currently uses Google Sheets via Google Forms/Apps Script.
- * To switch to Substack later, just update the `subscribe` function
- * to call Substack's API instead.
+ * Uses Lovable Cloud edge function with Resend by default.
+ * Can be switched to Substack by changing the provider config.
  */
+
+import { supabase } from "@/integrations/supabase/client";
 
 // Configuration - update this when switching providers
 export const NEWSLETTER_CONFIG = {
-  // For Google Sheets: Use your Google Apps Script Web App URL
-  // For Substack: Replace with Substack embed URL or API endpoint
-  endpoint: '', // User will configure this
-  provider: 'google-sheets' as 'google-sheets' | 'substack',
+  // 'cloud' uses Lovable Cloud edge function with Resend
+  // 'substack' redirects to Substack subscribe page
+  provider: 'cloud' as 'cloud' | 'substack',
+  // Only needed for Substack - your Substack subscribe URL
+  substackUrl: '',
 } as const;
 
 export interface SubscribeResult {
@@ -34,42 +36,31 @@ export async function subscribeToNewsletter(
     return { success: false, message: 'Please enter a valid email address' };
   }
 
-  // If no endpoint configured, fall back to mailto
-  if (!NEWSLETTER_CONFIG.endpoint) {
-    const subject = encodeURIComponent('Newsletter Subscription - TechieTips');
-    const body = encodeURIComponent(
-      `Hi,\n\nPlease add me to the TechieTips newsletter.\n\nEmail: ${email}${name ? `\nName: ${name}` : ''}\n\nThank you!`
-    );
-    window.location.href = `mailto:tharunkumarr98@gmail.com?subject=${subject}&body=${body}`;
-    return { success: true, message: 'Opening email client...' };
-  }
-
   try {
-    if (NEWSLETTER_CONFIG.provider === 'google-sheets') {
-      // Google Apps Script Web App endpoint
-      const response = await fetch(NEWSLETTER_CONFIG.endpoint, {
-        method: 'POST',
-        mode: 'no-cors', // Required for Google Apps Script
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          name: name || '',
-          timestamp: new Date().toISOString(),
-          source: window.location.origin,
-        }),
-      });
+    if (NEWSLETTER_CONFIG.provider === 'cloud') {
+      // Call Lovable Cloud edge function
+      const { data, error } = await supabase.functions.invoke(
+        'send-subscription-notification',
+        {
+          body: { email, name: name || '' },
+        }
+      );
 
-      // no-cors doesn't give us response status, assume success
-      return { success: true, message: 'Thanks for subscribing!' };
+      if (error) {
+        console.error('Subscription error:', error);
+        return { success: false, message: 'Subscription failed. Please try again.' };
+      }
+
+      return { success: true, message: data?.message || 'Thanks for subscribing!' };
     }
 
     if (NEWSLETTER_CONFIG.provider === 'substack') {
-      // TODO: Implement Substack API integration
-      // For now, redirect to Substack subscribe page
-      window.open(NEWSLETTER_CONFIG.endpoint, '_blank');
-      return { success: true, message: 'Redirecting to Substack...' };
+      // Redirect to Substack subscribe page
+      if (NEWSLETTER_CONFIG.substackUrl) {
+        window.open(NEWSLETTER_CONFIG.substackUrl, '_blank');
+        return { success: true, message: 'Redirecting to Substack...' };
+      }
+      return { success: false, message: 'Substack URL not configured' };
     }
 
     return { success: false, message: 'Newsletter provider not configured' };
