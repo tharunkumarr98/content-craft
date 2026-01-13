@@ -9,7 +9,7 @@ interface ContactCTAProps {
 
 const ContactCTA = ({ 
   email = "tharunkumarr98@gmail.com",
-  subject = "Hello from TechieTips"
+  subject = "Hello Tharun! I would like to get in touch with you."
 }: ContactCTAProps) => {
   const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
 
@@ -27,7 +27,7 @@ const ContactCTA = ({
         <div className="flex flex-col sm:flex-row gap-3">
           <SubscribeDialog
             trigger={
-              <Button className="gap-2 shadow-sm">
+              <Button className="gap-2 shadow-sm" data-open-subscribe>
                 <Newspaper className="h-4 w-4" />
                 Subscribe
               </Button>

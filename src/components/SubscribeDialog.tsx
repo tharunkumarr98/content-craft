@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mail, Loader2 } from "lucide-react";
 import {
   Dialog,
@@ -24,6 +24,57 @@ const SubscribeDialog = ({ trigger }: SubscribeDialogProps) => {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  // Persist close preference for 7 days. By default persistence is per-path so
+  // closing the dialog on / does not prevent it appearing on /blog. You can
+  // configure via `window.SUBSCRIBE_POPUP_CONFIG = { perPage: false }` to make
+  // it global.
+  const STORAGE_KEY_BASE = "subscribe_dialog_closed_until";
+  const DISABLE_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+  const globalCfg = (typeof window !== "undefined" && (window as any).SUBSCRIBE_POPUP_CONFIG) || {};
+  const PER_PAGE = globalCfg.perPage !== undefined ? Boolean(globalCfg.perPage) : true;
+  const storageKey = PER_PAGE ? `${STORAGE_KEY_BASE}:${typeof window !== "undefined" ? location.pathname : ""}` : STORAGE_KEY_BASE;
+
+  const isClosedForUser = () => {
+    try {
+      const v = localStorage.getItem(storageKey);
+      if (!v) return false;
+      const ts = parseInt(v, 10);
+      if (Number.isNaN(ts)) return false;
+      return Date.now() < ts;
+    } catch (err) {
+      return false;
+    }
+  };
+
+  const markClosedForUser = () => {
+    try {
+      const until = Date.now() + DISABLE_DURATION_MS;
+      localStorage.setItem(storageKey, String(until));
+    } catch (err) {
+      // ignore
+    }
+  };
+
+  // Listen for a global event to open the dialog programmatically.
+  // This keeps the trigger logic framework-agnostic: other scripts can dispatch
+  // `window.dispatchEvent(new CustomEvent('openSubscribeDialog'))` to open it.
+  // Respect the user's persisted "do not show" preference.
+  useEffect(() => {
+    const onOpenRequest = () => {
+      if (isClosedForUser()) return;
+      setOpen(true);
+    };
+    window.addEventListener("openSubscribeDialog", onOpenRequest as EventListener);
+    // Notify that the subscribe dialog listener is ready so external triggers
+    // (like the scroll-trigger) can coordinate and avoid race conditions.
+    try {
+      window.dispatchEvent(new CustomEvent("subscribeDialogReady"));
+    } catch (err) {}
+    return () => {
+      window.removeEventListener("openSubscribeDialog", onOpenRequest as EventListener);
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,7 +112,14 @@ const SubscribeDialog = ({ trigger }: SubscribeDialogProps) => {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={(v: boolean) => {
+        // If the dialog is being closed by the user, persist the preference for 7 days
+        if (!v) markClosedForUser();
+        setOpen(v);
+      }}
+    >
       <DialogTrigger asChild>
         {trigger || (
           <Button variant="outline" className="gap-2">
