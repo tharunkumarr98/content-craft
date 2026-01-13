@@ -1,5 +1,6 @@
-import { Mail } from "lucide-react";
+import { Mail, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SubscribeDialog from "@/components/SubscribeDialog";
 
 interface ContactCTAProps {
   email?: string;
@@ -17,18 +18,28 @@ const ContactCTA = ({
       <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 rounded-xl bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border border-primary/10">
         <div>
           <h3 className="text-lg font-semibold text-foreground mb-1">
-            Have questions or feedback?
+            Stay connected
           </h3>
           <p className="text-muted-foreground text-sm">
-            I'd love to hear from you. Let's connect!
+            Subscribe for updates or reach out with questions!
           </p>
         </div>
-        <Button asChild className="gap-2 shadow-sm">
-          <a href={mailtoLink}>
-            <Mail className="h-4 w-4" />
-            Contact Me
-          </a>
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <SubscribeDialog
+            trigger={
+              <Button variant="outline" className="gap-2 shadow-sm">
+                <Bell className="h-4 w-4" />
+                Subscribe
+              </Button>
+            }
+          />
+          <Button asChild className="gap-2 shadow-sm">
+            <a href={mailtoLink}>
+              <Mail className="h-4 w-4" />
+              Contact Me
+            </a>
+          </Button>
+        </div>
       </div>
     </div>
   );
