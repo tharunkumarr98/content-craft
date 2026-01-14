@@ -233,16 +233,9 @@ const Comments: React.FC<CommentsProps> = ({ contentSlug, contentType }) => {
               <div className="flex items-start gap-3">
                 <div className="text-2xl">{comment.reaction}</div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-medium text-foreground">
-                      {comment.author_name}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      {formatDistanceToNow(new Date(comment.created_at), {
-                        addSuffix: true,
-                      })}
-                    </span>
-                  </div>
+                  <span className="font-medium text-foreground">
+                    {comment.author_name}
+                  </span>
                   <p className="mt-2 text-foreground/90 whitespace-pre-wrap break-words">
                     {comment.comment}
                   </p>
