@@ -1,9 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
-const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
-const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -11,9 +8,13 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-interface SubscriptionRequest {
-  email: string;
-  name?: string;
+interface CommentNotificationRequest {
+  authorName: string;
+  reaction: string;
+  comment: string;
+  contentTitle: string;
+  contentType: string;
+  contentSlug: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -23,11 +24,11 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { email, name }: SubscriptionRequest = await req.json();
+    const { authorName, reaction, comment, contentTitle, contentType, contentSlug }: CommentNotificationRequest = await req.json();
 
-    if (!email) {
+    if (!authorName || !comment) {
       return new Response(
-        JSON.stringify({ error: "Email is required" }),
+        JSON.stringify({ error: "Author name and comment are required" }),
         {
           status: 400,
           headers: { "Content-Type": "application/json", ...corsHeaders },
@@ -35,23 +36,7 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // Create Supabase client with service role key to bypass RLS
-    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
-
-    // Store subscriber in database (upsert to handle duplicates)
-    const { error: dbError } = await supabase
-      .from("subscribers")
-      .upsert(
-        { email, name: name || null, is_active: true },
-        { onConflict: "email" }
-      );
-
-    if (dbError) {
-      console.error("Database error:", dbError);
-      // Continue to send email even if DB fails
-    }
-
-    // Send notification to site owner using Resend API directly
+    // Send notification email
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -61,17 +46,22 @@ const handler = async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         from: "TechieTips <onboarding@resend.dev>",
         to: ["tharunkumarr98@gmail.com"],
-        subject: "🎉 New Newsletter Subscriber!",
+        subject: `💬 New Comment on "${contentTitle}"`,
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-            <h1 style="color: #1a1a1a;">New Newsletter Subscription</h1>
-            <p style="font-size: 16px; color: #333;">Someone just subscribed to your newsletter!</p>
+            <h1 style="color: #1a1a1a;">New Comment Received!</h1>
+            <p style="font-size: 16px; color: #333;">Someone just commented on your ${contentType}:</p>
             <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <p style="margin: 0;"><strong>Email:</strong> ${email}</p>
-              ${name ? `<p style="margin: 10px 0 0;"><strong>Name:</strong> ${name}</p>` : ''}
+              <p style="margin: 0;"><strong>Content:</strong> ${contentTitle}</p>
+              <p style="margin: 10px 0 0;"><strong>Author:</strong> ${authorName}</p>
+              <p style="margin: 10px 0 0;"><strong>Reaction:</strong> ${reaction}</p>
+              <p style="margin: 10px 0 0;"><strong>Comment:</strong></p>
+              <div style="background: white; padding: 15px; border-radius: 6px; margin-top: 10px; border-left: 4px solid #0d9488;">
+                ${comment.replace(/\n/g, '<br>')}
+              </div>
             </div>
             <p style="color: #666; font-size: 14px;">
-              Subscribed at: ${new Date().toLocaleString()}
+              Commented at: ${new Date().toLocaleString()}
             </p>
           </div>
         `,
@@ -85,17 +75,17 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const emailResponse = await response.json();
-    console.log("Subscription notification sent:", emailResponse);
+    console.log("Comment notification sent:", emailResponse);
 
     return new Response(
-      JSON.stringify({ success: true, message: "Thanks for subscribing!" }),
+      JSON.stringify({ success: true }),
       {
         status: 200,
         headers: { "Content-Type": "application/json", ...corsHeaders },
       }
     );
   } catch (error: any) {
-    console.error("Error in send-subscription-notification:", error);
+    console.error("Error in send-comment-notification:", error);
     return new Response(
       JSON.stringify({ error: error.message }),
       {
