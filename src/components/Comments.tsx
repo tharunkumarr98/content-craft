@@ -28,11 +28,12 @@ interface Comment {
 interface CommentsProps {
   contentSlug: string;
   contentType: string;
+  contentTitle: string;
 }
 
 const REACTIONS = ["👍", "❤️", "🎉", "🤔", "👏"] as const;
 
-const Comments: React.FC<CommentsProps> = ({ contentSlug, contentType }) => {
+const Comments: React.FC<CommentsProps> = ({ contentSlug, contentType, contentTitle }) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -87,6 +88,18 @@ const Comments: React.FC<CommentsProps> = ({ contentSlug, contentType }) => {
       });
 
       if (error) throw error;
+
+      // Send email notification (fire and forget - don't block UI)
+      supabase.functions.invoke("send-comment-notification", {
+        body: {
+          authorName: name.trim(),
+          reaction,
+          comment: commentText.trim(),
+          contentTitle,
+          contentType,
+          contentSlug,
+        },
+      }).catch((err) => console.error("Failed to send notification:", err));
 
       toast.success("Comment posted successfully!");
       setDialogOpen(false);
@@ -233,9 +246,16 @@ const Comments: React.FC<CommentsProps> = ({ contentSlug, contentType }) => {
               <div className="flex items-start gap-3">
                 <div className="text-2xl">{comment.reaction}</div>
                 <div className="flex-1 min-w-0">
-                  <span className="font-medium text-foreground">
-                    {comment.author_name}
-                  </span>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-medium text-foreground">
+                      {comment.author_name}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {formatDistanceToNow(new Date(comment.created_at), {
+                        addSuffix: true,
+                      })}
+                    </span>
+                  </div>
                   <p className="mt-2 text-foreground/90 whitespace-pre-wrap break-words">
                     {comment.comment}
                   </p>
