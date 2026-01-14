@@ -136,8 +136,9 @@ const ContentDetail = ({ type }: ContentDetailProps) => {
         </div>
 
         {/* Comments: show for all content types (including dashboards); left-aligned with article width */}
+        {/* Note: GiscusComments was the previous Giscus-based component, now using custom Comments component */}
         <div className="max-w-3xl">
-          <Comments mapping="specific" term={item.slug} />
+          <Comments contentSlug={item.slug} contentType={type} />
         </div>
       </article>
 
