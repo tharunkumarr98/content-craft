@@ -789,7 +789,7 @@ The conditional formatting logic we applied for that example is
 
 When we calculate the percent of the overall range for **Profit %** across all products,
 
-![captionless image](images/blog/percent-option/111.png)
+![captionless image](images/blog/percent-option/11.png)
 
 it becomes clear why the formatting behaves the way it does. Now we can understand why only one product that **Velo** font color is in Red whereas remaining are green and no other products **Profit %** font color is in orange color.
 
