@@ -698,7 +698,7 @@ Happy Learning!!!`,F3=`---
 title: "Power BI: The Hidden Meaning of Percent Option in Rules Based Conditional Formatting"
 date: "2026-01-25"
 summary: "Percent option in Rules based conditional formatting is range based, not value based."
-tags: ["Power BI", "Conditional Formatting", "Percent Option"]
+tags: ["Power BI","Report", "Conditional Formatting"]
 ---
 
 
