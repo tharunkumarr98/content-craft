@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const RESEND_AUDIENCE_ID = Deno.env.get("RESEND_AUDIENCE_ID");
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
@@ -50,8 +51,37 @@ const handler = async (req: Request): Promise<Response> => {
       console.error("Database error:", dbError);
       // Continue to send email even if DB fails
     }
+    // Add contact to Resend audience
+    if (RESEND_AUDIENCE_ID) {
+      try {
+        const audienceResponse = await fetch(
+          `https://api.resend.com/audiences/${RESEND_AUDIENCE_ID}/contacts`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${RESEND_API_KEY}`,
+            },
+            body: JSON.stringify({
+              email,
+              first_name: name || undefined,
+              unsubscribed: false,
+            }),
+          }
+        );
 
-    // Send notification to site owner using Resend API directly
+        if (!audienceResponse.ok) {
+          const audienceError = await audienceResponse.json();
+          console.error("Resend Audience API error:", audienceError);
+        } else {
+          console.log("Contact added to Resend audience successfully");
+        }
+      } catch (audienceErr) {
+        console.error("Failed to add contact to Resend audience:", audienceErr);
+      }
+    }
+
+
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
