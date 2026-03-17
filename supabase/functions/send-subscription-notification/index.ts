@@ -81,6 +81,35 @@ const handler = async (req: Request): Promise<Response> => {
       }
     }
 
+    // Send welcome email to the subscriber using Resend template
+    try {
+      const welcomeResponse = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from: "TechieTips <onboarding@resend.dev>",
+          to: [email],
+          subject: "Welcome to the Newsletter!",
+          html: `<!-- Fallback if template fails -->`,
+          headers: {
+            "X-Entity-Ref-ID": `welcome-${email}-${Date.now()}`,
+          },
+        }),
+      });
+
+      if (!welcomeResponse.ok) {
+        const welcomeError = await welcomeResponse.json();
+        console.error("Welcome email error:", welcomeError);
+      } else {
+        console.log("Welcome email sent to:", email);
+      }
+    } catch (welcomeErr) {
+      console.error("Failed to send welcome email:", welcomeErr);
+    }
+
 
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
