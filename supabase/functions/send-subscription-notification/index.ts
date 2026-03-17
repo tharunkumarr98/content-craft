@@ -81,33 +81,39 @@ const handler = async (req: Request): Promise<Response> => {
       }
     }
 
-    // Send welcome email to the subscriber using Resend template
-    try {
-      const welcomeResponse = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${RESEND_API_KEY}`,
-        },
-        body: JSON.stringify({
-          from: "TechieTips <onboarding@resend.dev>",
-          to: [email],
-          subject: "Welcome to the Newsletter!",
-          html: `<!-- Fallback if template fails -->`,
+    // Send welcome email to the subscriber using Resend saved template
+    const WELCOME_TEMPLATE_ID = Deno.env.get("RESEND_WELCOME_TEMPLATE_ID");
+    if (WELCOME_TEMPLATE_ID) {
+      try {
+        const welcomeResponse = await fetch("https://api.resend.com/emails", {
+          method: "POST",
           headers: {
-            "X-Entity-Ref-ID": `welcome-${email}-${Date.now()}`,
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${RESEND_API_KEY}`,
           },
-        }),
-      });
+          body: JSON.stringify({
+            from: "TechieTips <onboarding@resend.dev>",
+            to: [email],
+            template: {
+              id: WELCOME_TEMPLATE_ID,
+              variables: {
+                name: name || "there",
+              },
+            },
+          }),
+        });
 
-      if (!welcomeResponse.ok) {
-        const welcomeError = await welcomeResponse.json();
-        console.error("Welcome email error:", welcomeError);
-      } else {
-        console.log("Welcome email sent to:", email);
+        if (!welcomeResponse.ok) {
+          const welcomeError = await welcomeResponse.json();
+          console.error("Welcome email error:", welcomeError);
+        } else {
+          console.log("Welcome email sent to:", email);
+        }
+      } catch (welcomeErr) {
+        console.error("Failed to send welcome email:", welcomeErr);
       }
-    } catch (welcomeErr) {
-      console.error("Failed to send welcome email:", welcomeErr);
+    } else {
+      console.warn("RESEND_WELCOME_TEMPLATE_ID not set, skipping welcome email");
     }
 
 
