@@ -83,6 +83,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send welcome email to the subscriber using Resend saved template
     const WELCOME_TEMPLATE_ID = Deno.env.get("RESEND_WELCOME_TEMPLATE_ID");
+    console.log("Welcome template ID:", WELCOME_TEMPLATE_ID);
     if (WELCOME_TEMPLATE_ID) {
       try {
         const welcomeResponse = await fetch("https://api.resend.com/emails", {
