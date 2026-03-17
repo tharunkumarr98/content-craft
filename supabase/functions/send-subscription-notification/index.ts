@@ -82,7 +82,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Send welcome email to the subscriber using Resend saved template
-    const WELCOME_TEMPLATE_ID = Deno.env.get("RESEND_WELCOME_TEMPLATE_ID");
+    const WELCOME_TEMPLATE_ID = "ece40ffa-d534-4a87-9b33-53aff91bc5e4";
     console.log("Welcome template ID:", WELCOME_TEMPLATE_ID);
     if (WELCOME_TEMPLATE_ID) {
       try {
