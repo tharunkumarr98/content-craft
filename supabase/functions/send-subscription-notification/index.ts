@@ -92,7 +92,7 @@ const handler = async (req: Request): Promise<Response> => {
             "Authorization": `Bearer ${RESEND_API_KEY}`,
           },
           body: JSON.stringify({
-            from: "TechieTips <onboarding@resend.dev>",
+            from: "TechieTips <tharun_kumar.ravikrindhi@techietips.co.in>",
             to: [email],
             template: {
               id: WELCOME_TEMPLATE_ID,
@@ -124,7 +124,7 @@ const handler = async (req: Request): Promise<Response> => {
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "TechieTips <onboarding@resend.dev>",
+        from: "TechieTips <tharun_kumar.ravikrindhi@techietips.co.in>",
         to: ["tharunkumarr98@gmail.com"],
         subject: "🎉 New Newsletter Subscriber!",
         html: `
