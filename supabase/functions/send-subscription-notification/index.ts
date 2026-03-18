@@ -82,38 +82,42 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Send welcome email to the subscriber using Resend saved template
-    const WELCOME_TEMPLATE_ID = Deno.env.get("RESEND_WELCOME_TEMPLATE_ID") || "ece40ffa-d534-4a87-9b33-53aff91bc5e4";
-    if (WELCOME_TEMPLATE_ID) {
-      try {
-        const welcomeResponse = await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${RESEND_API_KEY}`,
-          },
-          body: JSON.stringify({
-            from: "TechieTips <tharun_kumar.ravikrindhi@techietips.co.in>",
-            to: [email],
-            template: {
-              id: WELCOME_TEMPLATE_ID,
-              variables: {
-                name: name || "there",
-              },
-            },
-          }),
-        });
+    const configuredTemplateId = Deno.env.get("RESEND_WELCOME_TEMPLATE_ID")?.trim();
+    const WELCOME_TEMPLATE_ID =
+      configuredTemplateId && /^[0-9a-f-]{36}$/i.test(configuredTemplateId)
+        ? configuredTemplateId
+        : "ece40ffa-d534-4a87-9b33-53aff91bc5e4";
 
-        if (!welcomeResponse.ok) {
-          const welcomeError = await welcomeResponse.json();
-          console.error("Welcome email error:", welcomeError);
-        } else {
-          console.log("Welcome email sent to:", email);
-        }
-      } catch (welcomeErr) {
-        console.error("Failed to send welcome email:", welcomeErr);
+    try {
+      const welcomeResponse = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from: "TechieTips <tharun_kumar.ravikrindhi@techietips.co.in>",
+          to: [email],
+          template: {
+            id: WELCOME_TEMPLATE_ID,
+            variables: {
+              name: name || "there",
+            },
+          },
+        }),
+      });
+
+      if (!welcomeResponse.ok) {
+        const welcomeError = await welcomeResponse.json();
+        console.error("Welcome email error:", {
+          templateId: WELCOME_TEMPLATE_ID,
+          ...welcomeError,
+        });
+      } else {
+        console.log("Welcome email sent to:", email);
       }
-    } else {
-      console.warn("RESEND_WELCOME_TEMPLATE_ID not set, skipping welcome email");
+    } catch (welcomeErr) {
+      console.error("Failed to send welcome email:", welcomeErr);
     }
 
 
