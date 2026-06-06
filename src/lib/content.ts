@@ -11,8 +11,10 @@ export interface ContentItem {
   readingTime: number;
   content: string;
   type: ContentType;
-  // Dashboard-specific
   embedUrl?: string;
+  image?: string;      // optional cover/thumbnail image URL for cards
+  series?: string;     // series name, e.g. "Fabric Pipelines"
+  seriesOrder?: number; // position within the series (1-based)
 }
 
 // Import all markdown files from content directories at build time
@@ -68,6 +70,9 @@ function parseContentItems(
         content: markdownContent,
         type,
         embedUrl: data.embedUrl,
+        image: data.image,
+        series: data.series,
+        seriesOrder: data.seriesOrder != null ? Number(data.seriesOrder) : undefined,
       });
     } catch (error) {
       console.error(`Error parsing ${path}:`, error);

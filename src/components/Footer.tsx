@@ -14,7 +14,7 @@ const Footer = () => {
               Knowledge hub for Modern Data Analytics.
             </p>
           </div>
-          
+
           <div>
             <h4 className="font-semibold text-foreground mb-5">Content</h4>
             <nav className="flex flex-col gap-3">
@@ -30,14 +30,20 @@ const Footer = () => {
               <Link to="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 About
               </Link>
+              <Link to="/achievements" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                Achievements
+              </Link>
+              <Link to="/newsletter" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                Newsletter
+              </Link>
             </nav>
           </div>
-          
+
           <div>
             <Connect />
           </div>
         </div>
-        
+
         <div className="mt-12 pt-8 border-t border-border/50">
           <p className="text-sm text-muted-foreground text-center">
             © {new Date().getFullYear()} TechieTips. All rights reserved.

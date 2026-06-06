@@ -1,7 +1,7 @@
 ---
 title: "How to update Power BI measures in bulk"
 date: "2024-06-23"
-summary: "Exaplained how to update over 500 Power BI measures with new filter values in just one day! 🚀 "
+summary: "Explained how to update over 500 Power BI measures with new filter values in just one day! 🚀 "
 tags: ["Power BI", "Semantic Model", "DAX"]
 ---
 

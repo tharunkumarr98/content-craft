@@ -292,6 +292,12 @@
   }
 }
 
+/* Dot grid background pattern for hero sections */
+.bg-dot-pattern {
+  background-image: radial-gradient(hsl(var(--primary) / 0.18) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
 /* Scrollbar styles */
 ::-webkit-scrollbar {
   width: 8px;

@@ -2,7 +2,7 @@
 title: "Unlocking the Power of Power BI Goals (Metrics): A Hidden Gem"
 date: "2024-11-10"
 summary: "Explains how to streamline KPI tracking across multiple dashboards all told through a story. 📊📈"
-tags: ["Power BI","Goals", "Metrix", "KPI"]
+tags: ["Power BI","Goals", "Metrics", "KPI"]
 ---
 Initially, Power BI Metrics were called Goals. Later, Microsoft renamed them to Metrics. With the launch of Fabric Metrics layers, they are reverting to their original name, Goals. Throughout this blog post, I will refer to both term Goals and Metric as necessary for clarity. Check out [this blog post](https://powerbi.microsoft.com/en-us/blog/power-bi-september-2024-feature-summary/#post-28098-_Toc177480335) for more information.
 

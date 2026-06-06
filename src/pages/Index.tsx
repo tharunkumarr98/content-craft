@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, FileText, Lightbulb, LayoutDashboard } from "lucide-react";
 import Layout from "@/components/Layout";
 import ContentToggle from "@/components/ContentToggle";
 import TechCloud from "@/components/TechCloud";
@@ -9,7 +9,6 @@ import ContactCTA from "@/components/ContactCTA";
 import ContentCard from "@/components/ContentCard";
 import { getArticles, getTips, getDashboards, ContentType } from "@/lib/content";
 
-// Mapping from icon names to content tags they should match
 const tagMapping: Record<string, string[]> = {
   "Power BI": ["Power BI"],
   "Fabric": ["Fabric", "Microsoft Fabric"],
@@ -21,58 +20,49 @@ const tagMapping: Record<string, string[]> = {
 const Index = () => {
   const [activeType, setActiveType] = useState<ContentType>("article");
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
-  
+
+  const articles   = getArticles();
+  const tips       = getTips();
+  const dashboards = getDashboards();
+
   const getContent = () => {
     let items;
     switch (activeType) {
-      case "article":
-        items = getArticles();
-        break;
-      case "tip":
-        items = getTips();
-        break;
-      case "dashboard":
-        items = getDashboards();
-        break;
+      case "article":   items = articles;   break;
+      case "tip":       items = tips;       break;
+      case "dashboard": items = dashboards; break;
     }
-    
-    // Filter by selected tech if one is active
+
     if (selectedTech) {
       const matchingTags = tagMapping[selectedTech] || [selectedTech];
       items = items.filter(item => {
         const primaryTag = item.tags?.[0];
-        return primaryTag && matchingTags.some(tag => 
+        return primaryTag && matchingTags.some(tag =>
           tag.toLowerCase() === primaryTag.toLowerCase()
         );
       });
     }
-    
+
     return items.slice(0, 4);
   };
 
   const getTypeLabel = () => {
     switch (activeType) {
-      case "article":
-        return "Articles";
-      case "tip":
-        return "Tips & Tricks";
-      case "dashboard":
-        return "Dashboards";
+      case "article":   return "Articles";
+      case "tip":       return "Tips & Tricks";
+      case "dashboard": return "Dashboards";
     }
   };
 
   const getTypeRoute = () => {
     switch (activeType) {
-      case "article":
-        return "/articles";
-      case "tip":
-        return "/tips";
-      case "dashboard":
-        return "/dashboards";
+      case "article":   return "/articles";
+      case "tip":       return "/tips";
+      case "dashboard": return "/dashboards";
     }
   };
 
-  const content = getContent();
+  const content      = getContent();
   const hasNoContent = content.length === 0 && selectedTech !== null;
 
   return (
@@ -84,19 +74,54 @@ const Index = () => {
         <meta property="og:description" content="Technical insights on Microsoft Fabric, Power BI, and data analytics." />
         <meta property="og:type" content="website" />
       </Helmet>
-      
+
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.02] via-primary/[0.03] to-transparent" />
-        <div className="container py-16 md:py-20 relative">
+        <div className="absolute inset-0 bg-dot-pattern opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-primary/[0.04]" />
+        <div className="container py-16 md:py-24 relative">
           <div className="max-w-2xl animate-fade-in">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-[1.1] tracking-tight">
-             Knowledge Hub for{" "}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-5 leading-[1.1] tracking-tight">
+              Knowledge Hub for{" "}
               <span className="gradient-text">Modern Data Analytics</span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Hands-on knowledge for the Microsoft data ecosystem
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
+              Hands-on knowledge for the Microsoft data ecosystem, written by a practitioner, for practitioners.
             </p>
+
+            {/* Stats row */}
+            <div className="flex flex-wrap gap-4">
+              <Link
+                to="/articles"
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-card border border-border/60 hover:border-primary/40 hover:shadow-md transition-all duration-200 group"
+              >
+                <div className="p-1.5 rounded-lg bg-primary/10">
+                  <FileText className="h-3.5 w-3.5 text-primary" />
+                </div>
+                <span className="text-sm font-bold text-foreground">{articles.length}</span>
+                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Articles</span>
+              </Link>
+              <Link
+                to="/tips"
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-card border border-border/60 hover:border-primary/40 hover:shadow-md transition-all duration-200 group"
+              >
+                <div className="p-1.5 rounded-lg bg-amber-100 dark:bg-amber-900/40">
+                  <Lightbulb className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400" />
+                </div>
+                <span className="text-sm font-bold text-foreground">{tips.length}</span>
+                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Tips & Tricks</span>
+              </Link>
+              <Link
+                to="/dashboards"
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-card border border-border/60 hover:border-primary/40 hover:shadow-md transition-all duration-200 group"
+              >
+                <div className="p-1.5 rounded-lg bg-violet-100 dark:bg-violet-900/40">
+                  <LayoutDashboard className="h-3.5 w-3.5 text-violet-600 dark:text-violet-400" />
+                </div>
+                <span className="text-sm font-bold text-foreground">{dashboards.length}</span>
+                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Dashboards</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -104,19 +129,18 @@ const Index = () => {
       {/* Content Section */}
       <section className="container pb-20">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-6">
-            <ContentToggle activeType={activeType} onTypeChange={setActiveType} />
-          </div>
-        
-        {/* TechCloud - only show for Articles and Tips, not Dashboards */}
+          <ContentToggle activeType={activeType} onTypeChange={setActiveType} />
+        </div>
+
         {activeType !== "dashboard" && (
           <div className="mb-10">
-            <TechCloud 
-              onTechClick={setSelectedTech} 
-              activeTech={selectedTech} 
+            <TechCloud
+              onTechClick={setSelectedTech}
+              activeTech={selectedTech}
             />
           </div>
         )}
-        
+
         {hasNoContent ? (
           <div className="flex flex-col items-center justify-center py-16 text-center animate-fade-in">
             <div className="relative mb-6">
@@ -128,7 +152,7 @@ const Index = () => {
               {selectedTech} content is brewing! ☕
             </h3>
             <p className="text-muted-foreground max-w-md">
-              I'm crafting some awesome {selectedTech} {getTypeLabel().toLowerCase()} for you. 
+              I'm crafting some awesome {selectedTech} {getTypeLabel().toLowerCase()} for you.
               Check back soon or explore other topics!
             </p>
             <button
@@ -142,8 +166,8 @@ const Index = () => {
           <div className="relative">
             <div className="grid gap-6 pb-12">
               {content.map((item, index) => (
-                <article 
-                  key={item.slug} 
+                <article
+                  key={item.slug}
                   className="animate-fade-in-up"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -152,9 +176,8 @@ const Index = () => {
               ))}
             </div>
 
-            {/* View all positioned at bottom-right of content list */}
-            <Link 
-              to={getTypeRoute()} 
+            <Link
+              to={getTypeRoute()}
               className="absolute right-0 bottom-0 flex items-center gap-2 text-sm font-medium text-primary hover:gap-3 transition-all duration-200"
             >
               View all {getTypeLabel().toLowerCase()} <ArrowRight className="h-4 w-4" />
