@@ -10,6 +10,7 @@ import ContentPage from "./pages/ContentPage";
 import ContentDetail from "./pages/ContentDetail";
 import About from "./pages/About";
 import Achievements from "./pages/Achievements";
+import Journey from "./pages/Journey";
 import Newsletter from "./pages/Newsletter";
 import NotFound from "./pages/NotFound";
 import { Analytics } from "@vercel/analytics/react"
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/dashboards/:slug" element={<ContentDetail type="dashboard" />} />
               <Route path="/about" element={<About />} />
               <Route path="/achievements" element={<Achievements />} />
+              <Route path="/journey" element={<Journey />} />
               <Route path="/newsletter" element={<Newsletter />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

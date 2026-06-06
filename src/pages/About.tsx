@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { Trophy, BadgeCheck, Users, ArrowRight } from "lucide-react";
+import { Trophy, BadgeCheck, Users, ArrowRight, GraduationCap, Briefcase } from "lucide-react";
 import Layout from "@/components/Layout";
 import ContactCTA from "@/components/ContactCTA";
 import Connect from "@/components/Connect";
@@ -13,14 +13,14 @@ const About = () => {
         <title>About - TechieTips</title>
         <meta
           name="description"
-          content="About Tharun Kumar Ravikrindhi — Senior Data Engineer, 8× Microsoft Certified, and Microsoft Fabric Community Super User. Sharing practical data analytics insights."
+          content="About Tharun Kumar Ravikrindhi, Senior Data Engineer, 8x Microsoft Certified, and Microsoft Fabric Community Super User. Sharing practical data analytics insights."
         />
       </Helmet>
 
       <section className="container py-12 max-w-5xl animate-fade-in">
         <div className="flex flex-col md:flex-row gap-10 md:gap-14">
 
-          {/* Left Column — Photo & Identity */}
+          {/* Left Column: Photo and Identity */}
           <div className="md:w-1/3 flex-shrink-0">
             <div className="relative inline-block mb-5">
               <img
@@ -57,7 +57,7 @@ const About = () => {
             </div>
           </div>
 
-          {/* Right Column — Content */}
+          {/* Right Column: Content */}
           <div className="md:w-2/3 prose-blog">
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
               Welcome to TechieTips! I share practical insights from building data analytics solutions using the Microsoft data ecosystem.
@@ -95,14 +95,17 @@ const About = () => {
 
       {/* Achievements Teaser */}
       <section className="container pb-8 max-w-5xl">
-        <div className="rounded-2xl border border-border/60 bg-gradient-to-br from-primary/5 via-card to-primary/[0.02] p-8">
+        <Link
+          to="/achievements"
+          className="group block rounded-2xl border border-border/60 bg-gradient-to-br from-primary/5 via-card to-primary/[0.02] p-8 transition-all duration-200 hover:border-primary/40 hover:shadow-lg hover:-translate-y-0.5"
+        >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div>
-              <h2 className="text-xl font-bold text-foreground mb-2">
+              <h2 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                 Achievements & Recognition
               </h2>
               <p className="text-muted-foreground text-sm max-w-lg">
-                Certifications, awards, community recognition, and appreciation from the data analytics ecosystem — all in one place.
+                Certifications, awards, community recognition, and appreciation from the data analytics ecosystem, all in one place.
               </p>
 
               {/* Quick stats */}
@@ -128,15 +131,46 @@ const About = () => {
               </div>
             </div>
 
-            <Link
-              to="/achievements"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-all duration-200 flex-shrink-0 group"
-            >
-              View All
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
+            <ArrowRight className="h-5 w-5 text-muted-foreground flex-shrink-0 self-center group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
           </div>
-        </div>
+        </Link>
+      </section>
+
+      {/* My Journey Teaser */}
+      <section className="container pb-8 max-w-5xl">
+        <Link
+          to="/journey"
+          className="group block rounded-2xl border border-border/60 bg-gradient-to-br from-teal-500/5 via-card to-violet-500/[0.03] p-8 overflow-hidden relative transition-all duration-200 hover:border-teal-400/40 hover:shadow-lg hover:-translate-y-0.5"
+        >
+          {/* Decorative connecting line */}
+          <div className="absolute right-8 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-border to-transparent hidden sm:block" />
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div>
+              <h2 className="text-xl font-bold text-foreground mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                My Journey
+              </h2>
+              <p className="text-muted-foreground text-sm max-w-lg">
+                A visual timeline of the milestones that shaped my path, from early education to where I am today.
+              </p>
+
+              {/* Mini timeline preview */}
+              <div className="flex items-center gap-1 mt-5">
+                <span className="p-1.5 rounded-full bg-gradient-to-br from-violet-400 to-violet-600">
+                  <GraduationCap className="h-4 w-4 text-white" />
+                </span>
+                <span className="w-8 h-0.5 bg-border" />
+                <span className="p-1.5 rounded-full bg-gradient-to-br from-teal-400 to-teal-600">
+                  <Briefcase className="h-4 w-4 text-white" />
+                </span>
+                <span className="w-8 h-0.5 bg-border" />
+                <span className="text-sm font-semibold text-foreground ml-1">Today</span>
+              </div>
+            </div>
+
+            <ArrowRight className="h-5 w-5 text-muted-foreground flex-shrink-0 self-center group-hover:text-teal-600 dark:group-hover:text-teal-400 group-hover:translate-x-0.5 transition-all" />
+          </div>
+        </Link>
       </section>
 
       <section className="container pb-16 max-w-5xl">

@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Sun, Moon, Trophy } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "next-themes";
 import SearchPalette from "./SearchPalette";
@@ -23,7 +23,6 @@ const Header = () => {
     { path: "/tips", label: "Tips" },
     { path: "/dashboards", label: "Dashboards" },
     { path: "/about", label: "About" },
-    { path: "/achievements", label: "Achievements", icon: Trophy },
   ];
 
   const headerRef = useRef<HTMLElement | null>(null);

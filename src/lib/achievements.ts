@@ -13,24 +13,33 @@ export interface AchievementItem {
   platform?: string;
   excerpt?: string;
   from?: string;
+  /** Direct image URL: badge PNG/SVG, Credly badge image, or screenshot */
+  imageUrl?: string;
+  /** Iframe-embeddable URL: Credly badge embed, LinkedIn post embed, etc. */
+  embedUrl?: string;
 }
 
 // ─── How to add a new achievement ────────────────────────────────────────────
 //
-// Create a markdown file in /content/achievements/<slug>.md with this format:
+// Create a markdown file in /content/achievements/<slug>.md:
 //
 //   ---
 //   title: "Achievement title"
 //   type: certification | award | community | appreciation
 //   date: "YYYY-MM-DD"
-//   issuer: "Organization name"        # certifications & awards
-//   link: "https://..."                # verify / post URL
-//   platform: "LinkedIn"               # community & appreciation
-//   from: "Name, Role"                 # community & appreciation
+//   issuer: "Organization name"                # certifications & awards
+//   link: "https://..."                         # verify / post / award URL
+//   imageUrl: "https://..."                     # badge image, screenshot, etc.
+//   embedUrl: "https://www.credly.com/..."      # Credly embed or similar iframe URL
+//   platform: "LinkedIn"                        # community & appreciation
+//   from: "Name, Role"                          # community & appreciation
 //   ---
 //
-//   The markdown body is the description (certifications/awards)
-//   or the displayed quote/excerpt (community/appreciation).
+//   The markdown body is the description (certifications / awards)
+//   or the displayed quote / excerpt (community / appreciation).
+//
+// Credly embed URL format:
+//   https://www.credly.com/badges/<badge-id>/embedded
 //
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -61,20 +70,24 @@ function parseAchievements(): AchievementItem[] {
         issuer: attributes.issuer,
         platform: attributes.platform,
         from: attributes.from,
+        imageUrl: attributes.imageUrl,
+        embedUrl: attributes.embedUrl,
         // For community/appreciation: use frontmatter excerpt if set,
         // otherwise fall back to the markdown body.
-        excerpt: attributes.excerpt || (
-          (attributes.type === "community" || attributes.type === "appreciation")
+        excerpt:
+          attributes.excerpt ||
+          (attributes.type === "community" || attributes.type === "appreciation"
             ? trimmedBody
-            : undefined
-        ),
+            : undefined),
       });
     } catch (err) {
       console.error(`Error parsing achievement ${path}:`, err);
     }
   }
 
-  return items.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return items.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 }
 
 let cached: AchievementItem[] | null = null;
