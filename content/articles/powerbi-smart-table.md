@@ -32,7 +32,7 @@ The toolbar has a search box with its own operator dropdown: contains, is exactl
 
 <iframe src="https://www.youtube.com/embed/biYBDeVU8xw" title="Smart Table Excel Style Column Filtering" allowfullscreen></iframe>
 
-[Click here](https://www.techietips.co.in/dashboards/Smart-Table-Excel-Style-Column-Filtering)
+[Click here](https://www.techietips.co.in/dashboards/Smart-Table-Excel-Style-Column-Filtering) to interact with the visual
 
 ## 2. Dynamic column headers, driven by a measure
 
