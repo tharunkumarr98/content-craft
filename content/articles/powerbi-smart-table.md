@@ -24,6 +24,10 @@ The conditions follow the column type rather than offering one generic list:
 
 Sync is on by default. Filters applied in the header are pushed to the model, so every other visual on the page responds, exactly as if the user had used a slicer. Turn Sync off: Filtering then narrows this grid only.
 
+
+<iframe src="https://www.youtube.com/embed/biYBDeVU8xw" title="Smart Table Excel Style Column Filtering" allowfullscreen></iframe>
+
+
 ### Global search
 
 The toolbar has a search box with its own operator dropdown: contains, is exactly, starts with, ends with, does not contain. It searches across every column at once.
@@ -36,14 +40,17 @@ Arrival Month is set to April, and the Key Metrics headers read Lead Time (Avg: 
 
 The header honors the filter context, including the filters applied inside the grid itself. Filter Property down to Resort Hotel with the funnel and the averages in the header follow.
 
+<iframe src="https://www.youtube.com/watch?v=CRxdEWsqfzs" title="Smart Table Dynamic column headers, driven by a measure" allowfullscreen></iframe>
+
 ## 3. Column groups, without any extra tables
 
 Four groups across eleven columns: Reservation, Channel, Room Type, Key Metrics. Each one is a spanning header above its columns with its own colour.
 
 The thing to notice is what is not involved. No disconnected table. No field parameters. No two table visuals stacked on top of each other. No shapes placed in the background: which means your column groups move to the right along with your cursor.
 
-Known limits
-------------
+<iframe src="https://www.youtube.com/watch?v=xFi8LUcKWig" title="Smart Table Dynamic column grouping" allowfullscreen></iframe>
+
+## Known limits
 
 All of these come down to one idea: some filtering reaches the model and some is local to the grid.
 

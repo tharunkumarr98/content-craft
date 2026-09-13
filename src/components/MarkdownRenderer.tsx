@@ -1,17 +1,75 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import CodeBlock from "./CodeBlock";
 
 interface MarkdownRendererProps {
   content: string;
 }
 
+const getSafeEmbedUrl = (src?: string) => {
+  if (!src) return null;
+
+  try {
+    const url = new URL(src);
+    const youtubeHosts = [
+      "www.youtube.com",
+      "youtube.com",
+      "www.youtube-nocookie.com",
+      "youtube-nocookie.com",
+      "youtu.be",
+    ];
+
+    if (youtubeHosts.includes(url.hostname)) {
+      const videoId = url.hostname === "youtu.be"
+        ? url.pathname.slice(1)
+        : url.pathname.startsWith("/embed/")
+          ? url.pathname.split("/embed/")[1]
+          : url.searchParams.get("v");
+
+      if (videoId) {
+        return `https://www.youtube-nocookie.com/embed/${videoId}`;
+      }
+    }
+
+    if (url.hostname === "app.powerbi.com" && url.pathname === "/view" && url.searchParams.has("r")) {
+      return url.toString();
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+};
+
 const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
   return (
     <div className="prose-blog">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
         components={{
+          iframe: ({ src, title, ...props }) => {
+            const safeSrc = getSafeEmbedUrl(src);
+
+            if (!safeSrc) {
+              return <p>Unsupported embed URL. Use a YouTube video URL or a public Power BI `/view?r=...` URL.</p>;
+            }
+
+            return (
+              <span className="block my-8 rounded-xl overflow-hidden shadow-md aspect-video w-full">
+                <iframe
+                  src={safeSrc}
+                  title={title || "Embedded content"}
+                  className="w-full h-full border-0"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  {...props}
+                />
+              </span>
+            );
+          },
           h1: ({ children }) => {
             const id = String(children).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
             return <h1 id={id}>{children}</h1>;
