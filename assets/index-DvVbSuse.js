@@ -2927,12 +2927,14 @@ The conditions follow the column type rather than offering one generic list:
 Sync is on by default. Filters applied in the header are pushed to the model, so every other visual on the page responds, exactly as if the user had used a slicer. Turn Sync off: Filtering then narrows this grid only.
 
 
-<iframe src="https://www.youtube.com/embed/biYBDeVU8xw" title="Smart Table Excel Style Column Filtering" allowfullscreen></iframe>
-
-
 ### Global search
 
 The toolbar has a search box with its own operator dropdown: contains, is exactly, starts with, ends with, does not contain. It searches across every column at once.
+
+
+<iframe src="https://www.youtube.com/embed/biYBDeVU8xw" title="Smart Table Excel Style Column Filtering" allowfullscreen></iframe>
+
+[Click here](https://www.techietips.co.in/dashboards/Smart-Table-Excel-Style-Column-Filtering)
 
 ## 2. Dynamic column headers, driven by a measure
 
@@ -2944,6 +2946,8 @@ The header honors the filter context, including the filters applied inside the g
 
 <iframe src="https://www.youtube.com/watch?v=CRxdEWsqfzs" title="Smart Table Dynamic column headers, driven by a measure" allowfullscreen></iframe>
 
+[Click here](https://www.techietips.co.in/dashboards/Smart-Table-dynamic-column-headers) to interact with the visual
+
 ## 3. Column groups, without any extra tables
 
 Four groups across eleven columns: Reservation, Channel, Room Type, Key Metrics. Each one is a spanning header above its columns with its own colour.
@@ -2951,6 +2955,8 @@ Four groups across eleven columns: Reservation, Channel, Room Type, Key Metrics.
 The thing to notice is what is not involved. No disconnected table. No field parameters. No two table visuals stacked on top of each other. No shapes placed in the background: which means your column groups move to the right along with your cursor.
 
 <iframe src="https://www.youtube.com/watch?v=xFi8LUcKWig" title="Smart Table Dynamic column grouping" allowfullscreen></iframe>
+
+[Click here](https://www.techietips.co.in/dashboards/Smart-Table-column-groups) to interact with the visual
 
 ## Known limits
 
@@ -4185,7 +4191,7 @@ For better viewing experinece keep the zoom level to 70%
 ### Technologies Used
 `,U8=`---
 title: "Column Groups"
-date: "Column Groups"
+date: "2026-09-13"
 summary: "Dynamic Column Headers (Measure driven column headers)"
 tags: ["Power BI", "Report", "Custom Visual"]
 embedUrl: "https://app.powerbi.com/view?r=eyJrIjoiNDMwM2ZkZDItZDNlZC00Zjk1LWJjYTEtZmRjYzQyYmVkMWYzIiwidCI6IjcwZTZjYzU5LWEwZDUtNDc4YS1iOGI5LTY3OGNjZTJlM2E2MyJ9&pageName=e8e66c72c81021d18123"
