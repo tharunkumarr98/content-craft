@@ -12,7 +12,7 @@ There are grid visuals in the Microsoft visual app source that do. Most develope
 
 So I built one. It is called Smart Table, and I built it with Claude. This post walks through what it does.
 
-# 1. Excel style column filtering
+## 1. Excel style column filtering
 
 Every column header carries a funnel button in its own divided cell. Click it and you get what you would expect from Excel: sort, a set of conditions appropriate to the column’s type, and a searchable checkbox list of that column’s values. The menu names the column it belongs to, counts what you have ticked, and stays open while you sort.
 
@@ -28,7 +28,7 @@ Sync is on by default. Filters applied in the header are pushed to the model, so
 
 The toolbar has a search box with its own operator dropdown: contains, is exactly, starts with, ends with, does not contain. It searches across every column at once.
 
-# 2. Dynamic column headers, driven by a measure
+## 2. Dynamic column headers, driven by a measure
 
 A column header name is normally a static label. Here it can be a DAX measure.
 
@@ -36,7 +36,7 @@ Arrival Month is set to April, and the Key Metrics headers read Lead Time (Avg: 
 
 The header honors the filter context, including the filters applied inside the grid itself. Filter Property down to Resort Hotel with the funnel and the averages in the header follow.
 
-# 3. Column groups, without any extra tables
+## 3. Column groups, without any extra tables
 
 Four groups across eleven columns: Reservation, Channel, Room Type, Key Metrics. Each one is a spanning header above its columns with its own colour.
 
