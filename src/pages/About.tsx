@@ -114,7 +114,7 @@ const About = () => {
                   <div className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/40">
                     <BadgeCheck className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                   </div>
-                  <span className="text-sm font-semibold text-foreground">8× Microsoft Certified</span>
+                  <span className="text-sm font-semibold text-foreground">9× Microsoft Certified</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="p-1.5 rounded-lg bg-amber-100 dark:bg-amber-900/40">
