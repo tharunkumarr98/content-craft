@@ -13,7 +13,7 @@ const About = () => {
         <title>About - TechieTips</title>
         <meta
           name="description"
-          content="About Tharun Kumar Ravikrindhi, Senior Data Engineer, 8x Microsoft Certified, and Microsoft Fabric Community Super User. Sharing practical data analytics insights."
+          content="About Tharun Kumar Ravikrindhi, Senior Data Engineer, 9x Microsoft Certified, and Microsoft Fabric Community Super User. Sharing practical data analytics insights."
         />
       </Helmet>
 

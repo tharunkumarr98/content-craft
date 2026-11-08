@@ -309,7 +309,7 @@ const Achievements = () => {
         <title>Achievements and Recognition - TechieTips</title>
         <meta
           name="description"
-          content="Certifications, awards, and community recognition earned by Tharun Kumar Ravikrindhi - 8x Microsoft Certified, Fabric Community Super User."
+          content="Certifications, awards, and community recognition earned by Tharun Kumar Ravikrindhi - 9x Microsoft Certified, Fabric Community Super User."
         />
       </Helmet>
 
