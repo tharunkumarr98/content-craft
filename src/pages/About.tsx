@@ -48,7 +48,7 @@ const About = () => {
               </div>
               <div className="flex items-center gap-2.5 text-sm text-muted-foreground">
                 <span className="text-base">🏅</span>
-                <span><strong className="text-foreground font-medium">8× Microsoft Certified</strong></span>
+                <span><strong className="text-foreground font-medium">9× Microsoft Certified</strong></span>
               </div>
             </div>
 
